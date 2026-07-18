@@ -57,7 +57,15 @@ header {
 
 .brand {
     display: flex;
-    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+.logo-image {
+    width: 56px;
+    height: 56px;
+    object-fit: contain;
+    flex-shrink: 0;
 }
 
 .logo {
