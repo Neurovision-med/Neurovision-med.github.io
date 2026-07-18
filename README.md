@@ -1,4 +1,4 @@
-## Hi there 👋
+## Welcome to our website
 
 <!--
 **Neurovision-med/Neurovision-med** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
