@@ -378,3 +378,35 @@ footer a:hover {
         padding: 60px 25px;
     }
 }
+
+/* more stuff */
+.page-header {
+    padding: 70px 60px;
+    background: var(--light-blue);
+    text-align: center;
+}
+
+.page-header h1 {
+    font-family: "Merriweather", serif;
+    color: var(--navy);
+    font-size: 3rem;
+}
+
+.content-container {
+    max-width: 1100px;
+    margin: auto;
+    padding: 60px;
+}
+
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 25px;
+}
+
+.info-box {
+    background:white;
+    border:1px solid var(--border);
+    border-radius:15px;
+    padding:25px;
+}
