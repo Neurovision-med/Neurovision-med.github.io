@@ -1,5 +1,7 @@
 ## Welcome to our website
 
+Yo what do i even write here bro
+If you wanna get invited to work on it email me or something ig
 <!--
 **Neurovision-med/Neurovision-med** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
 
