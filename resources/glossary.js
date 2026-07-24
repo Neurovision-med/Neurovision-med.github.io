@@ -148,23 +148,55 @@ function createGlossary(){
     if(!container)return;
 
 
-    glossaryTerms.forEach(term=>{
+    let currentLetter="";
+
+
+    const sorted=[...glossaryTerms].sort((a,b)=>
+        a.name.localeCompare(b.name)
+    );
+
+
+    sorted.forEach(term=>{
+
+        const letter=term.name.charAt(0).toUpperCase();
+
+
+        if(letter!==currentLetter){
+
+            currentLetter=letter;
+
+
+            const heading=document.createElement("h2");
+
+            heading.textContent=letter;
+
+            heading.id=letter;
+
+            container.appendChild(heading);
+
+        }
+
 
         const article=document.createElement("article");
 
         article.className="glossary-entry";
+
         article.id=term.id;
 
 
         article.innerHTML=`
+
             <h3>${term.name}</h3>
+
             <p>${term.definition}</p>
+
         `;
 
 
         container.appendChild(article);
 
     });
+
 }
 
 
@@ -199,6 +231,36 @@ function setupSearch(){
     });
 }
 
+function setupAlphabet(){
+
+    document.querySelectorAll(".alphabet a")
+    .forEach(link=>{
+
+        link.addEventListener("click",event=>{
+
+            event.preventDefault();
+
+
+            const target=
+            document.getElementById(
+                link.getAttribute("href").substring(1)
+            );
+
+
+            if(target){
+
+                target.scrollIntoView({
+                    behavior:"smooth"
+                });
+
+            }
+
+        });
+
+    });
+
+}
+
 
 document.addEventListener("DOMContentLoaded",()=>{
 
@@ -207,5 +269,7 @@ document.addEventListener("DOMContentLoaded",()=>{
     createGlossary();
 
     setupSearch();
+
+    setupAlphabet();
 
 });
