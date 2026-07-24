@@ -265,6 +265,15 @@ section h2 {
     transition: 0.25s;
 }
 
+.card-nh {
+    background: white;
+    padding: 35px 25px;
+    border-radius: 15px;
+    border: 1px solid var(--border);
+    text-align: center;
+    transition: 0.25s;
+}
+
 .card:hover {
     transform: translateY(-8px);
     box-shadow: var(--shadow-hover);
@@ -275,7 +284,16 @@ section h2 {
     margin-bottom: 15px;
 }
 
+.card-nh h3 {
+    color: var(--navy);
+    margin-bottom: 15px;
+}
+
 .card p {
+    color: var(--gray);
+}
+
+.card-nh p {
     color: var(--gray);
 }
 
@@ -287,7 +305,6 @@ section h2 {
     -ms-user-select: none;
     user-select: none;   
 }
-
 
 /* Featured Topic */
 
