@@ -6,10 +6,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>
-        PAGE TITLE | NeuroVision
-    </title>
+    <title>Glossary | NeuroVision</title>
 
+    <link rel="icon" type="image/png" href="../assets/images/logo.png">
     <link rel="stylesheet" href="../style.css">
 
 </head>
@@ -22,12 +21,18 @@
 
     <div class="brand">
 
-        <div class="logo">
-            NeuroVision
-        </div>
+        <img src="../assets/images/logo.png" alt="NeuroVision Logo" class="logo-image">
 
-        <div class="slogan">
-            Desire to explore, desire to learn!
+        <div>
+
+            <div class="logo">
+                NeuroVision
+            </div>
+
+            <div class="slogan">
+                Desire to explore, desire to learn!
+            </div>
+
         </div>
 
     </div>
@@ -66,7 +71,7 @@
 
                     <li>
                         <a href="../explore/memory.html">
-                            How Memory Works
+                            Memory
                         </a>
                     </li>
 
@@ -78,7 +83,7 @@
             <li class="dropdown">
 
                 <a href="#">
-                    Dementia ▾
+                    Types of Dementia ▾
                 </a>
 
                 <ul class="dropdown-menu">
@@ -134,19 +139,7 @@
 
                     <li>
                         <a href="../discover/quiz.html">
-                            Knowledge Quiz
-                        </a>
-                    </li>
-
-                    <li>
-                        <a href="../discover/myths.html">
-                            Myths & Facts
-                        </a>
-                    </li>
-
-                    <li>
-                        <a href="../discover/featured.html">
-                            Featured Topics
+                            Quiz
                         </a>
                     </li>
 
@@ -164,19 +157,19 @@
                 <ul class="dropdown-menu">
 
                     <li>
-                        <a href="../resources/glossary.html">
+                        <a href="glossary.html">
                             Glossary
                         </a>
                     </li>
 
                     <li>
-                        <a href="../resources/bibliography.html">
+                        <a href="bibliography.html">
                             Bibliography
                         </a>
                     </li>
 
                     <li>
-                        <a href="../resources/external.html">
+                        <a href="external.html">
                             External Resources
                         </a>
                     </li>
@@ -230,102 +223,239 @@
 
 <div class="breadcrumb">
 
-    <a href="../index.html">
+    <a href="../">
         Home
     </a>
 
     >
 
     <span>
-        PAGE NAME
+        Glossary
     </span>
 
 </div>
 
 
 
-<section class="hero">
+<section class="page-header">
 
-    <div class="hero-text">
+    <h1>
+        NeuroVision Glossary
+    </h1>
 
-
-        <h1>
-            🚧 PAGE TITLE
-        </h1>
-
-
-        <p>
-            This page is currently under development.
-            NeuroVision is working to create accessible,
-            engaging educational content for this section.
-        </p>
-
-
-        <a class="button" href="../index.html">
-            Return Home
-        </a>
-
-
-    </div>
+    <p>
+        Explore connections between neurological concepts,
+        dementia-related conditions, and important medical terms.
+    </p>
 
 </section>
 
 
 
-<section>
+<section class="glossary-tools">
 
+
+    <input id="glossary-search"
+           type="text"
+           placeholder="Search medical terms...">
+
+
+    <div class="alphabet">
+
+        <a href="#A">A</a>
+        <a href="#B">B</a>
+        <a href="#C">C</a>
+        <a href="#D">D</a>
+        <a href="#E">E</a>
+        <a href="#F">F</a>
+        <a href="#G">G</a>
+        <a href="#H">H</a>
+        <a href="#M">M</a>
+        <a href="#N">N</a>
+        <a href="#P">P</a>
+        <a href="#S">S</a>
+        <a href="#T">T</a>
+
+    </div>
+
+
+</section>
+
+
+
+<section class="graph-section">
 
     <h2>
-        Content Coming Soon
+        Knowledge Map
     </h2>
 
 
-    <div class="card-container">
+    <p>
+        Click a term to explore its definition and connections.
+    </p>
 
 
-        <div class="card">
+    <div class="graph-container">
 
-            <h3>
-                Planned Content
-            </h3>
+        <svg id="glossary-graph"
+             viewBox="0 0 800 800">
 
-            <p>
-                Information for this section is currently
-                being researched and prepared.
-            </p>
+            <!-- JavaScript will generate the graph here -->
 
-        </div>
-
-
-        <div class="card">
-
-            <h3>
-                NeuroVision Goal
-            </h3>
-
-            <p>
-                Making neuroscience understandable,
-                accessible, and engaging.
-            </p>
-
-        </div>
-
-
-        <div class="card">
-
-            <h3>
-                Check Back Soon
-            </h3>
-
-            <p>
-                New educational materials will be added
-                as development continues.
-            </p>
-
-        </div>
-
+        </svg>
 
     </div>
+
+
+</section>
+
+
+
+<section class="glossary-container">
+
+
+<h2>
+    Medical Terms
+</h2>
+
+
+<div class="letter-section" id="A">
+
+    <h3>
+        A
+    </h3>
+
+
+    <article class="glossary-entry" id="alzheimers">
+
+        <h4>
+            Alzheimer's Disease
+        </h4>
+
+
+        <p>
+            A form of dementia associated with changes in the brain
+            that affect memory, thinking, and behavior.
+        </p>
+
+
+        <p class="related">
+            Related:
+            <a href="#amyloid-plaque">
+                Amyloid Plaque
+            </a>
+        </p>
+
+    </article>
+
+
+    <article class="glossary-entry" id="amyloid-plaque">
+
+        <h4>
+            Amyloid Plaque
+        </h4>
+
+
+        <p>
+            A buildup of protein fragments in the brain associated
+            with Alzheimer's disease research.
+        </p>
+
+    </article>
+
+
+</div>
+
+
+
+<div class="letter-section" id="D">
+
+    <h3>
+        D
+    </h3>
+
+
+    <article class="glossary-entry" id="dementia">
+
+        <h4>
+            Dementia
+        </h4>
+
+
+        <p>
+            A general term describing conditions that affect memory,
+            thinking, behavior, and daily functioning.
+        </p>
+
+
+        <p class="related">
+            Related:
+            <a href="#memory">
+                Memory
+            </a>
+
+            <a href="#neuron">
+                Neuron
+            </a>
+
+        </p>
+
+    </article>
+
+
+</div>
+
+
+
+<div class="letter-section" id="M">
+
+    <h3>
+        M
+    </h3>
+
+
+    <article class="glossary-entry" id="memory">
+
+        <h4>
+            Memory
+        </h4>
+
+
+        <p>
+            The ability of the brain to store, retain, and recall
+            information.
+        </p>
+
+    </article>
+
+
+</div>
+
+
+
+<div class="letter-section" id="N">
+
+    <h3>
+        N
+    </h3>
+
+
+    <article class="glossary-entry" id="neuron">
+
+        <h4>
+            Neuron
+        </h4>
+
+
+        <p>
+            A specialized cell that communicates information
+            throughout the nervous system.
+        </p>
+
+    </article>
+
+
+</div>
 
 
 </section>
@@ -337,65 +467,49 @@
 
 <footer>
 
+    <div>
 
-<div>
+        <h3>
+            NeuroVision
+        </h3>
 
-    <h3>
-        NeuroVision
-    </h3>
+        <p>
+            Desire to explore, desire to learn!
+        </p>
 
-    <p>
-        Desire to explore, desire to learn!
-    </p>
-
-</div>
-
-
-<div>
-
-    <h4>
-        Resources
-    </h4>
-
-    <a href="../resources/glossary.html">
-        Glossary
-    </a>
-
-    <br>
-
-    <a href="../resources/bibliography.html">
-        Bibliography
-    </a>
-
-</div>
+    </div>
 
 
-<div>
+    <div>
 
-    <h4>
-        About
-    </h4>
+        <h4>
+            Resources
+        </h4>
 
-    <a href="../about/credits.html">
-        Credits
-    </a>
+        <a href="glossary.html">
+            Glossary
+        </a>
 
-    <br>
+        <br>
 
-    <a href="../about/contact.html">
-        Contact Us
-    </a>
+        <a href="bibliography.html">
+            Bibliography
+        </a>
 
-</div>
+    </div>
 
 
-<p class="disclaimer">
+    <div>
 
-    NeuroVision provides educational information only
-    and is not a substitute for professional medical
-    advice, diagnosis, or treatment.
+        <h4>
+            About
+        </h4>
 
-</p>
+        <a href="../about/contact.html">
+            Contact Us
+        </a>
+
+    </div>
 
 
 </footer>
