@@ -1,202 +1,211 @@
-const glossaryNodes=[
-    {id:"dementia",name:"Dementia",size:65,ring:0,color:"#0E4C92",links:["memory","alzheimers","diagnosis","cognition","neuron"]},
+const glossaryTerms=[
+    {id:"dementia",name:"Dementia",definition:"A general term describing conditions that affect memory, thinking, behavior, and the ability to perform daily activities.",x:500,y:400,r:65,color:"#0E4C92",text:"#ffffff",links:["memory","alzheimers","diagnosis","cognition","neuron"]},
 
-    {id:"memory",name:"Memory",size:42,ring:1,color:"#2E6DA4",links:["dementia","hippocampus","neuron"]},
-    {id:"alzheimers",name:"Alzheimer's",size:45,ring:1,color:"#2E6DA4",links:["dementia","amyloid","tau"]},
-    {id:"diagnosis",name:"Diagnosis",size:38,ring:1,color:"#2E6DA4",links:["dementia","mri","biomarker"]},
-    {id:"cognition",name:"Cognition",size:38,ring:1,color:"#2E6DA4",links:["dementia","memory","frontotemporal"]},
-    {id:"neuron",name:"Neuron",size:40,ring:1,color:"#2E6DA4",links:["dementia","synapse"]},
+    {id:"memory",name:"Memory",definition:"The ability of the brain to store, retain, and recall information.",x:500,y:190,r:42,color:"#2E6DA4",text:"#ffffff",links:["dementia","hippocampus","cognition"]},
 
-    {id:"hippocampus",name:"Hippocampus",size:28,ring:2,color:"#A9C7E8",links:["memory"]},
-    {id:"amyloid",name:"Amyloid",size:28,ring:2,color:"#A9C7E8",links:["alzheimers"]},
-    {id:"tau",name:"Tau",size:28,ring:2,color:"#A9C7E8",links:["alzheimers"]},
-    {id:"mri",name:"MRI",size:25,ring:2,color:"#A9C7E8",links:["diagnosis"]},
-    {id:"biomarker",name:"Biomarker",size:28,ring:2,color:"#A9C7E8",links:["diagnosis"]},
-    {id:"synapse",name:"Synapse",size:25,ring:2,color:"#A9C7E8",links:["neuron"]},
-    {id:"frontotemporal",name:"Frontotemporal",size:30,ring:2,color:"#5F8DBB",links:["cognition"]},
-    {id:"lewy",name:"Lewy Body",size:30,ring:2,color:"#5F8DBB",links:["dementia"]},
-    {id:"vascular",name:"Vascular",size:30,ring:2,color:"#5F8DBB",links:["dementia"]}
+    {id:"alzheimers",name:"Alzheimer's Disease",definition:"The most common form of dementia, associated with changes in the brain that affect memory and cognition.",x:300,y:280,r:45,color:"#2E6DA4",text:"#ffffff",links:["dementia","amyloid","tau","hippocampus"]},
+
+    {id:"diagnosis",name:"Diagnosis",definition:"The process of identifying a medical condition through evaluation, observation, and testing.",x:700,y:280,r:40,color:"#2E6DA4",text:"#ffffff",links:["dementia","mri","biomarker"]},
+
+    {id:"cognition",name:"Cognition",definition:"The mental processes involved in thinking, learning, reasoning, and understanding.",x:300,y:520,r:40,color:"#2E6DA4",text:"#ffffff",links:["dementia","memory","frontotemporal"]},
+
+    {id:"neuron",name:"Neuron",definition:"A specialized cell that communicates information throughout the nervous system.",x:700,y:520,r:40,color:"#2E6DA4",text:"#ffffff",links:["dementia","synapse","neurotransmitter"]},
+
+    {id:"hippocampus",name:"Hippocampus",definition:"A brain structure involved in forming and retrieving memories.",x:150,y:150,r:30,color:"#A9C7E8",text:"#16324F",links:["memory","alzheimers"]},
+
+    {id:"amyloid",name:"Amyloid Plaque",definition:"A buildup of protein fragments associated with Alzheimer's disease research.",x:150,y:380,r:30,color:"#A9C7E8",text:"#16324F",links:["alzheimers","tau"]},
+
+    {id:"tau",name:"Tau Protein",definition:"A protein involved in maintaining neuron structure that can form abnormal tangles.",x:220,y:650,r:30,color:"#A9C7E8",text:"#16324F",links:["alzheimers","amyloid"]},
+
+    {id:"mri",name:"MRI",definition:"A medical imaging technique used to create detailed images of structures inside the body.",x:850,y:150,r:28,color:"#A9C7E8",text:"#16324F",links:["diagnosis"]},
+
+    {id:"biomarker",name:"Biomarker",definition:"A measurable indicator of a biological process or condition.",x:850,y:380,r:30,color:"#A9C7E8",text:"#16324F",links:["diagnosis"]},
+
+    {id:"synapse",name:"Synapse",definition:"The connection point where neurons communicate with other cells.",x:850,y:650,r:28,color:"#A9C7E8",text:"#16324F",links:["neuron"]},
+
+    {id:"neurotransmitter",name:"Neurotransmitter",definition:"A chemical messenger that allows neurons to communicate.",x:700,y:760,r:28,color:"#A9C7E8",text:"#16324F",links:["neuron","synapse"]},
+
+    {id:"frontotemporal",name:"Frontotemporal Dementia",definition:"A dementia affecting areas of the brain involved in personality, behavior, and language.",x:400,y:60,r:32,color:"#5F8DBB",text:"#ffffff",links:["cognition"]},
+
+    {id:"lewy",name:"Lewy Body Dementia",definition:"A dementia associated with abnormal protein deposits in brain cells.",x:950,y:520,r:32,color:"#5F8DBB",text:"#ffffff",links:["dementia"]},
+
+    {id:"vascular",name:"Vascular Dementia",definition:"A dementia caused by damage related to reduced blood flow in the brain.",x:500,y:760,r:32,color:"#5F8DBB",text:"#ffffff",links:["dementia"]},
+
+    {id:"stroke",name:"Stroke",definition:"A medical event caused by interrupted blood flow to part of the brain.",x:950,y:760,r:25,color:"#A9C7E8",text:"#16324F",links:["vascular"]}
 ];
 
 
-function positionNodes(){
-
-    const centerX=600;
-    const centerY=450;
-
-    const rings={
-        0:[],
-        1:[],
-        2:[]
-    };
-
-    glossaryNodes.forEach(node=>{
-        rings[node.ring].push(node);
-    });
-
-
-    Object.keys(rings).forEach(ring=>{
-
-        const nodes=rings[ring];
-
-        if(ring==0){
-
-            nodes[0].x=centerX;
-            nodes[0].y=centerY;
-
-        }
-
-        else{
-
-            const radius=ring==1?190:340;
-
-            nodes.forEach((node,index)=>{
-
-                const angle=
-                    (Math.PI*2/nodes.length)*index
-                    -Math.PI/2;
-
-
-                node.x=centerX+
-                    Math.cos(angle)*radius;
-
-
-                node.y=centerY+
-                    Math.sin(angle)*radius;
-
-            });
-
-        }
-
-    });
-
+function getTerm(id){
+    return glossaryTerms.find(term=>term.id===id);
 }
 
 
-function createGraph(){
+function drawConnections(svg){
 
-    const svg=document.getElementById("glossary-graph");
+    glossaryTerms.forEach(term=>{
 
-    if(!svg)return;
+        term.links.forEach(link=>{
 
+            const target=getTerm(link);
 
-    positionNodes();
+            if(target && term.id < target.id){
 
-    svg.innerHTML="";
-
-
-    svg.setAttribute(
-        "viewBox",
-        "0 0 1200 900"
-    );
-
-
-    glossaryNodes.forEach(node=>{
-
-        node.links.forEach(link=>{
-
-            const target=
-                glossaryNodes.find(
-                    n=>n.id==link
-                );
-
-
-            if(target && node.id<target.id){
-
-                const line=
-                document.createElementNS(
+                const line=document.createElementNS(
                     "http://www.w3.org/2000/svg",
                     "line"
                 );
 
-
-                line.setAttribute("x1",node.x);
-                line.setAttribute("y1",node.y);
+                line.setAttribute("x1",term.x);
+                line.setAttribute("y1",term.y);
                 line.setAttribute("x2",target.x);
                 line.setAttribute("y2",target.y);
 
                 line.classList.add("graph-line");
 
                 svg.appendChild(line);
-
             }
-
         });
-
     });
+}
 
 
-    glossaryNodes.forEach(node=>{
+function drawNodes(svg){
 
-        const group=
-        document.createElementNS(
+    glossaryTerms.forEach(term=>{
+
+        const group=document.createElementNS(
             "http://www.w3.org/2000/svg",
             "g"
         );
 
+        group.classList.add("graph-group");
 
-        const circle=
-        document.createElementNS(
+
+        const circle=document.createElementNS(
             "http://www.w3.org/2000/svg",
             "circle"
         );
 
-
-        circle.setAttribute("cx",node.x);
-        circle.setAttribute("cy",node.y);
-        circle.setAttribute("r",node.size);
-        circle.setAttribute("fill",node.color);
+        circle.setAttribute("cx",term.x);
+        circle.setAttribute("cy",term.y);
+        circle.setAttribute("r",term.r);
+        circle.setAttribute("fill",term.color);
 
         circle.classList.add("graph-node");
 
 
-        const text=
-        document.createElementNS(
+        const text=document.createElementNS(
             "http://www.w3.org/2000/svg",
             "text"
         );
 
-
-        text.setAttribute("x",node.x);
-        text.setAttribute("y",node.y);
-
-        text.setAttribute(
-            "text-anchor",
-            "middle"
-        );
-
-        text.setAttribute(
-            "dominant-baseline",
-            "middle"
-        );
-
-        text.textContent=node.name;
-
+        text.setAttribute("x",term.x);
+        text.setAttribute("y",term.y);
+        text.setAttribute("fill",term.text);
         text.classList.add("graph-label");
+
+        text.textContent=term.name;
 
 
         group.appendChild(circle);
         group.appendChild(text);
 
 
-        group.onclick=()=>{
+        group.addEventListener("click",()=>{
 
-            location.hash=node.id;
+            window.location.hash=term.id;
 
-        };
+            document
+            .getElementById(term.id)
+            ?.scrollIntoView({
+                behavior:"smooth"
+            });
+
+        });
 
 
         svg.appendChild(group);
 
     });
-
 }
 
 
-document.addEventListener(
-"DOMContentLoaded",
-()=>{
+function createMap(){
 
-    createGraph();
+    const svg=document.getElementById("glossary-map");
+
+    if(!svg)return;
+
+    drawConnections(svg);
+    drawNodes(svg);
+}
+
+
+function createGlossary(){
+
+    const container=document.getElementById("glossary-content");
+
+    if(!container)return;
+
+
+    glossaryTerms.forEach(term=>{
+
+        const article=document.createElement("article");
+
+        article.className="glossary-entry";
+        article.id=term.id;
+
+
+        article.innerHTML=`
+            <h3>${term.name}</h3>
+            <p>${term.definition}</p>
+        `;
+
+
+        container.appendChild(article);
+
+    });
+}
+
+
+function setupSearch(){
+
+    const search=document.getElementById("glossary-search");
+
+    if(!search)return;
+
+
+    search.addEventListener("input",()=>{
+
+        const value=search.value.toLowerCase();
+
+
+        const result=glossaryTerms.find(term=>
+            term.name.toLowerCase().includes(value)
+        );
+
+
+        if(result && value.length>1){
+
+            window.location.hash=result.id;
+
+            document
+            .getElementById(result.id)
+            ?.scrollIntoView({
+                behavior:"smooth"
+            });
+        }
+
+    });
+}
+
+
+document.addEventListener("DOMContentLoaded",()=>{
+
+    createMap();
+
+    createGlossary();
+
+    setupSearch();
 
 });
