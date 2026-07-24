@@ -463,13 +463,20 @@ footer a:hover {
 }
 
 .alphabet {
-    margin-top: 25px;
+    display:flex;
+    gap:12px;
+    flex-wrap:wrap;
+    margin:20px 0;
 }
 
 .alphabet a {
     margin: 0 8px;
     color: var(--navy);
     font-weight: bold;
+}
+
+.alphabet a:hover {
+    color:var(--accent);
 }
 
 .graph-section {
@@ -516,6 +523,10 @@ footer a:hover {
     padding: 25px;
     margin: 20px 0;
     border-radius: 12px;
+}
+
+.glossary-entry h3 {
+    margin-top:0;
 }
 
 .glossary-entry h4 {
