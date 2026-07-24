@@ -525,3 +525,27 @@ footer a:hover {
         background: white;
     }
 }
+
+.graph-line {
+    stroke: #b8c7d9;
+    stroke-width: 2;
+}
+
+.graph-text {
+    text-anchor: middle;
+    font-size: 12px;
+    fill: var(--navy);
+    pointer-events: none;
+}
+
+.graph-node {
+    fill: white;
+    stroke: var(--navy);
+    stroke-width: 3;
+    transition: .2s;
+}
+
+.graph-node:hover {
+    fill: var(--accent);
+    transform-origin: center;
+}
