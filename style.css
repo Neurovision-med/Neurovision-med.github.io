@@ -566,3 +566,41 @@ footer a:hover {
     fill: var(--accent);
     transform-origin: center;
 }
+
+.graph-label {
+    font-size:12px;
+    font-weight:bold;
+    pointer-events:none;
+}
+
+.graph-node {
+    stroke:#ffffff;
+    stroke-width:3px;
+    transition:.2s;
+}
+
+.graph-node:hover,
+.graph-node.active {
+    filter:brightness(1.15);
+    transform:scale(1.1);
+}
+
+.graph-node.fade {
+    opacity:.25;
+}
+
+.graph-line {
+    fill:none;
+    stroke:#b8c7d9;
+    stroke-width:2px;
+    transition:.2s;
+}
+
+.graph-line.active {
+    stroke:#0E4C92;
+    stroke-width:4px;
+}
+
+.graph-line.fade {
+    opacity:.15;
+}
