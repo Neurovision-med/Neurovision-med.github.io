@@ -544,55 +544,10 @@ footer a:hover {
 }
 
 .graph-line {
-    stroke: #b8c7d9;
-    stroke-width: 2;
-}
-
-.graph-text {
-    text-anchor: middle;
-    font-size: 12px;
-    fill: var(--navy);
-    pointer-events: none;
-}
-
-.graph-node {
-    fill: white;
-    stroke: var(--navy);
-    stroke-width: 3;
-    transition: .2s;
-}
-
-.graph-node:hover {
-    fill: var(--accent);
-    transform-origin: center;
-}
-
-.graph-label {
-    font-size:12px;
-    font-weight:bold;
-    pointer-events:none;
-}
-
-.graph-node {
-    stroke:#ffffff;
-    stroke-width:3px;
-    transition:.2s;
-}
-
-.graph-node:hover,
-.graph-node.active {
-    filter:brightness(1.15);
-    transform:scale(1.1);
-}
-
-.graph-node.fade {
-    opacity:.25;
-}
-
-.graph-line {
     fill:none;
     stroke:#b8c7d9;
     stroke-width:2px;
+    opacity:.8;
     transition:.2s;
 }
 
@@ -603,4 +558,30 @@ footer a:hover {
 
 .graph-line.fade {
     opacity:.15;
+}
+
+.graph-node {
+    stroke:#ffffff;
+    stroke-width:3px;
+    transition:.2s;
+    cursor:pointer;
+}
+
+.graph-node:hover,
+.graph-node.active {
+    filter:brightness(1.15);
+    stroke:#0E4C92;
+    stroke-width:5px;
+}
+
+.graph-node.fade {
+    opacity:.25;
+}
+
+.graph-label {
+    font-size:12px;
+    font-weight:bold;
+    text-anchor:middle;
+    dominant-baseline:middle;
+    pointer-events:none;
 }
