@@ -18,10 +18,10 @@ import { Circle2D, Rect2D, Vector } from "./maths.js"; // copied my maths librar
 const CANVAS_SIZE = Vector.two(512, 512);
 
 // physcis constants
-const SPRING_RESTING_LENGTH = 200;
+let SPRING_RESTING_LENGTH = 200;
 const SPRING_STIFFNESS = 0.03;
 const REPULSION_STRENGTH = 3000;
-const GRABBED_NODE_IMMUNE_TO_SIMULATION = true;
+let GRABBED_NODE_IMMUNE_TO_SIMULATION = true;
 // todo: maybe add a menu to change these in the thing (only if i feel very inspired to do that tho thats alot)
 
 class Node {
@@ -58,7 +58,8 @@ class Engine {
                 "grabbedNode": null,
                 "grabbedNodeStartPos": null,
                 "hasDragged": false
-            }
+            },
+            "debug": false
         }
         this.scale = 1;
         this.offset = Vector.two(0, 0);
@@ -70,6 +71,34 @@ class Engine {
             this.data.cursor.last_pos.setIp(this.data.cursor.obj.pos);
             this.data.cursor.obj.pos.x = e.clientX - rect.left;
             this.data.cursor.obj.pos.y = e.clientY - rect.top;
+        });
+        window.addEventListener("keydown", e => {
+            switch(e.key) {
+                case "=": {
+                    e.preventDefault()
+                    this.data.debug = !this.data.debug;
+                    break
+                }
+                case " ": {
+                    if(!this.data.debug) break;
+                    e.preventDefault()
+                    GRABBED_NODE_IMMUNE_TO_SIMULATION = !GRABBED_NODE_IMMUNE_TO_SIMULATION
+                    break
+                }
+                case "ArrowUp": {
+                    if(!this.data.debug) break;
+                    e.preventDefault();
+                    console.log("yo")
+                    SPRING_RESTING_LENGTH += 20
+                    break;
+                }
+                case "ArrowDown": {
+                    if(!this.data.debug) break;
+                    e.preventDefault();
+                    SPRING_RESTING_LENGTH -= 20
+                    break;
+                }
+            }
         });
         canvas.addEventListener("mousedown", e => { this.data.cursor.down = true; this.onClick(); })
         window.addEventListener("mouseup", e =>   { this.data.cursor.down = false; this.onRelease(); })
@@ -110,6 +139,7 @@ class Engine {
     }
     init() {
         this.setupHandlers();
+        this.fps_data = [];
     }
     tick(elapsed) {
         if(this._previousElapsed === null) {
@@ -124,6 +154,8 @@ class Engine {
         );
     
         this._previousElapsed = elapsed;
+        if(this.fps_data.length == 5) this.fps_data.shift();
+        this.fps_data.push(delta || 0);
     
         this.update(delta);
         this.render();
@@ -226,12 +258,27 @@ class Engine {
             ctx.arc(nx, ny, nr, 0, 2 * Math.PI);
             ctx.fill();
 
+            ctx.lineWidth = 2;
             ctx.font = "17px Arial"; // could scale w/ scale but looks better w/o
             ctx.fillStyle = "black";
             const textWidth = ctx.measureText(n.name).width;
             ctx.fillText(n.name, nx - textWidth / 2, ny - nr - 8);
         })
         
+        if(this.data.debug) {
+            let avg = 0;
+            this.fps_data.forEach(f => {
+                avg += f;
+            });
+            avg /= this.fps_data.length;
+
+            ctx.font = "17px Arial";
+            ctx.fillStyle = "black";
+            ctx.fillText(`${(1/avg).toFixed(2)} FPS`, 10, 30);
+            ctx.font = "14px Arial";
+            ctx.fillText(`grabbed immune to sim: ${GRABBED_NODE_IMMUNE_TO_SIMULATION}`, 10, 50);
+            ctx.fillText(`spring resting length: ${SPRING_RESTING_LENGTH} (change w/ arrow up & down)`, 10, 70);
+        }
     }
 }
 
