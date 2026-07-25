@@ -1,149 +1,194 @@
+<!--
+ * author thebadlorax
+ * created on 24-07-2026-21h-21m
+ * github: https://github.com/thebadlorax
+ * copyright 2026
+-->
+
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GLOSSARY | NeuroVision</title>
 
-    <title>NeuroVision | Glossary</title>
+    <link rel="stylesheet" href="../style.css" />
 
-    <link rel="stylesheet" href="../style.css">
-</head>
+    <script type="module" src="glossary.js"></script>
+    <link rel="icon" href="../assets/images/logo.png" type="image/x-icon">
+  </head>
 
-<body>
-
-<header>
-
-    <div class="brand">
-        <div class="logo">NeuroVision</div>
-        <div class="slogan">Desire to explore, desire to learn!</div>
-    </div>
-
-    <nav>
-        <ul class="nav-menu">
-            <li><a href="/">Home</a></li>
-
-            <li class="dropdown">
-                <a href="#">Explore ▾</a>
-                <ul class="dropdown-menu">
-                    <li><a href="../explore/dementia-basics.html">Dementia Basics</a></li>
-                </ul>
+  <body>
+    <header>
+        <div class="brand">
+          <img
+            src="../assets/images/logo.png"
+            alt="NeuroVision Logo"
+            class="logo-image"
+          />
+          <div>
+            <div class="logo">NeuroVision</div>
+            <div class="slogan">Desire to explore, desire to learn!</div>
+          </div>
+        </div>
+  
+        <nav>
+          <ul class="nav-menu">
+            <li>
+              <a href="./">Home</a>
             </li>
-
+  
             <li class="dropdown">
-                <a href="#">Types ▾</a>
-                <ul class="dropdown-menu">
-                    <li><a href="../types/alzheimers.html">Alzheimer's Disease</a></li>
-                    <li><a href="../types/vascular.html">Vascular Dementia</a></li>
-                </ul>
+              <a href="#">Explore ▾</a>
+  
+              <ul class="dropdown-menu">
+                <li>
+                  <a href="/explore/brain-basics.html">Brain Basics</a>
+                </li>
+  
+                <li>
+                  <a href="/explore/dementia-basics.html">Dementia Basics</a>
+                </li>
+  
+                <li>
+                  <a href="e/xplore/memory.html">How Memory Works</a>
+                </li>
+              </ul>
             </li>
-
+  
             <li class="dropdown">
-                <a href="#">Resources ▾</a>
-                <ul class="dropdown-menu">
-                    <li><a href="glossary.html">Glossary</a></li>
-                    <li><a href="bibliography.html">Bibliography</a></li>
-                </ul>
+              <a href="#">Types of Dementia ▾</a>
+  
+              <ul class="dropdown-menu">
+                <li>
+                  <a href="/types/alzheimers.html"> Alzheimer's Disease </a>
+                </li>
+  
+                <li>
+                  <a href="/types/vascular.html"> Vascular Dementia </a>
+                </li>
+  
+                <li>
+                  <a href="/types/lewy-body.html"> Lewy Body Dementia </a>
+                </li>
+  
+                <li>
+                  <a href="/types/frontotemporal.html">
+                    Frontotemporal Dementia
+                  </a>
+                </li>
+              </ul>
             </li>
+  
+            <li class="dropdown">
+              <a href="#">Discover ▾</a>
+  
+              <ul class="dropdown-menu">
+                <li>
+                  <a href="/discover/videos.html"> Videos </a>
+                </li>
+  
+                <li>
+                  <a href="/discover/quiz.html"> Knowledge Quiz </a>
+                </li>
+  
+                <li>
+                  <a href="/discover/myths.html"> Myths & Facts </a>
+                </li>
+  
+                <li>
+                  <a href="/discover/featured.html"> Featured Topics </a>
+                </li>
+              </ul>
+            </li>
+  
+            <li class="dropdown">
+              <a href="#">Resources ▾</a>
+  
+              <ul class="dropdown-menu">
+                <li>
+                  <a href="/resources/glossary.html"> Glossary </a>
+                </li>
+  
+                <li>
+                  <a href="/resources/bibliography.html"> Bibliography </a>
+                </li>
+  
+                <li>
+                  <a href="/resources/external.html"> External Resources </a>
+                </li>
+              </ul>
+            </li>
+  
+            <li class="dropdown">
+              <a href="#">About ▾</a>
+  
+              <ul class="dropdown-menu">
+                <li>
+                  <a href="/about/project.html"> Project </a>
+                </li>
+  
+                <li>
+                  <a href="/about/credits.html"> Credits </a>
+                </li>
+  
+                <li>
+                  <a href="/about/contact.html"> Contact Us </a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </nav>
+      </header>
 
-        </ul>
-    </nav>
+    <main>
 
-</header>
+      <section class="hero">
+        <div class="hero-text">
+          <div style="display: flex; flex-direction: row; justify-content: center; align-items: center;;">
+            <canvas id="mindmap"></canvas>
+            <div style="margin-left: 20vw;">
+              <h1>put glossary here</h1>
+            </div>
+          </div>
+            
+        </div>
+      </section>
 
+    </main>
 
-<main>
+    <footer>
+      <div>
+        <h3>NeuroVision</h3>
 
-<section class="page-header">
+        <p>Desire to explore, desire to learn!</p>
+      </div>
 
-    <h1>Dementia Knowledge Map</h1>
+      <div>
+        <h4>Resources</h4>
 
-    <p>
-        Explore important medical concepts and how they connect.
-        Click any term to view its definition.
-    </p>
+        <a href="../resources/glossary.html"> Glossary </a>
 
-</section>
+        <br />
 
+        <a href="../resources/bibliography.html"> Bibliography </a>
+      </div>
 
-<section class="knowledge-map">
+      <div>
+        <h4>About</h4>
 
-<svg id="glossary-map" viewBox="0 0 1000 800">
+        <a href="../about/credits.html"> Credits </a>
 
-</svg>
+        <br />
 
-</section>
+        <a href="../about/contact.html"> Contact Us </a>
+      </div>
 
-
-<section class="glossary-tools">
-
-<h2>Glossary</h2>
-
-<input id="glossary-search"
-type="text"
-placeholder="Search terms...">
-
-</section>
-
-
-<section class="alphabet-navigation">
-
-    <h2>Browse Terms</h2>
-
-    <div class="alphabet">
-        <a href="#A">A</a>
-        <a href="#B">B</a>
-        <a href="#C">C</a>
-        <a href="#D">D</a>
-        <a href="#E">E</a>
-        <a href="#F">F</a>
-        <a href="#G">G</a>
-        <a href="#H">H</a>
-        <a href="#L">L</a>
-        <a href="#M">M</a>
-        <a href="#N">N</a>
-        <a href="#S">S</a>
-        <a href="#T">T</a>
-        <a href="#V">V</a>
-    </div>
-
-</section>
-
-
-<section id="glossary-content">
-
-</section>
-
-
-</main>
-
-
-<footer>
-
-<div>
-<h3>NeuroVision</h3>
-<p>Desire to explore, desire to learn!</p>
-</div>
-
-<div>
-<h4>Resources</h4>
-<a href="glossary.html">Glossary</a>
-</div>
-
-<div>
-<h4>About</h4>
-<a href="../about/contact.html">Contact Us</a>
-</div>
-
-<p class="disclaimer">
-NeuroVision provides educational information only and is not a substitute for professional medical advice.
-</p>
-
-</footer>
-
-
-<script src="glossary.js"></script>
-
-</body>
-
+      <p class="disclaimer">
+        NeuroVision provides educational information only and is not a
+        substitute for professional medical advice, diagnosis, or treatment.
+      </p>
+    </footer>
+  </body>
 </html>

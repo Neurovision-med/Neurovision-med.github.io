@@ -1,275 +1,227 @@
-const glossaryTerms=[
-    {id:"dementia",name:"Dementia",definition:"A general term describing conditions that affect memory, thinking, behavior, and the ability to perform daily activities.",x:500,y:400,r:65,color:"#0E4C92",text:"#ffffff",links:["memory","alzheimers","diagnosis","cognition","neuron"]},
+/**
+ * author thebadlorax
+ * created on 24-07-2026-21h-21m
+ * github: https://github.com/thebadlorax
+ * copyright 2026
+*/
+// shoutout andrew morrison <3
 
-    {id:"memory",name:"Memory",definition:"The ability of the brain to store, retain, and recall information.",x:500,y:190,r:42,color:"#2E6DA4",text:"#ffffff",links:["dementia","hippocampus","cognition"]},
+/* things to think about:
+ * - should the glossary be static html or kept in like a json file and
+ * created at runtime
+ * - phone support (n/a rn)
+ * - how can we make the glossary more visually appealing past the mindmap
+ *  - like when you go into the glossary after clicking something how to make not boring?
+*/
+import { Circle2D, Rect2D, Vector } from "./maths.js"; // copied my maths library from my other projects (i should add springs to it)
 
-    {id:"alzheimers",name:"Alzheimer's Disease",definition:"The most common form of dementia, associated with changes in the brain that affect memory and cognition.",x:300,y:280,r:45,color:"#2E6DA4",text:"#ffffff",links:["dementia","amyloid","tau","hippocampus"]},
+const CANVAS_SIZE = Vector.two(512, 512);
 
-    {id:"diagnosis",name:"Diagnosis",definition:"The process of identifying a medical condition through evaluation, observation, and testing.",x:700,y:280,r:40,color:"#2E6DA4",text:"#ffffff",links:["dementia","mri","biomarker"]},
+// physcis constants
+const SPRING_RESTING_LENGTH = 200;
+const SPRING_STIFFNESS = 0.03;
+const REPULSION_STRENGTH = 3000;
+// todo: maybe add a menu to change these in the thing (only if i feel very inspired to do that tho thats alot)
 
-    {id:"cognition",name:"Cognition",definition:"The mental processes involved in thinking, learning, reasoning, and understanding.",x:300,y:520,r:40,color:"#2E6DA4",text:"#ffffff",links:["dementia","memory","frontotemporal"]},
+class Node {
+    constructor(obj, data) {
+        this.vel = Vector.two(0, 0)
+        this.obj = obj;
+        this.name = data.name;
+        this.color = data.color ?? `rgba(${Math.floor(Math.random()*128)}, ${Math.floor(Math.random()*128)}, ${Math.floor(Math.random()*128)}, 1)`;
+        this.link = data.link;
+        this.connections = data.connections ?? [];
+    }
 
-    {id:"neuron",name:"Neuron",definition:"A specialized cell that communicates information throughout the nervous system.",x:700,y:520,r:40,color:"#2E6DA4",text:"#ffffff",links:["dementia","synapse","neurotransmitter"]},
-
-    {id:"hippocampus",name:"Hippocampus",definition:"A brain structure involved in forming and retrieving memories.",x:150,y:150,r:30,color:"#A9C7E8",text:"#16324F",links:["memory","alzheimers"]},
-
-    {id:"amyloid",name:"Amyloid Plaque",definition:"A buildup of protein fragments associated with Alzheimer's disease research.",x:150,y:380,r:30,color:"#A9C7E8",text:"#16324F",links:["alzheimers","tau"]},
-
-    {id:"tau",name:"Tau Protein",definition:"A protein involved in maintaining neuron structure that can form abnormal tangles.",x:220,y:650,r:30,color:"#A9C7E8",text:"#16324F",links:["alzheimers","amyloid"]},
-
-    {id:"mri",name:"MRI",definition:"A medical imaging technique used to create detailed images of structures inside the body.",x:850,y:150,r:28,color:"#A9C7E8",text:"#16324F",links:["diagnosis"]},
-
-    {id:"biomarker",name:"Biomarker",definition:"A measurable indicator of a biological process or condition.",x:850,y:380,r:30,color:"#A9C7E8",text:"#16324F",links:["diagnosis"]},
-
-    {id:"synapse",name:"Synapse",definition:"The connection point where neurons communicate with other cells.",x:850,y:650,r:28,color:"#A9C7E8",text:"#16324F",links:["neuron"]},
-
-    {id:"neurotransmitter",name:"Neurotransmitter",definition:"A chemical messenger that allows neurons to communicate.",x:700,y:760,r:28,color:"#A9C7E8",text:"#16324F",links:["neuron","synapse"]},
-
-    {id:"frontotemporal",name:"Frontotemporal Dementia",definition:"A dementia affecting areas of the brain involved in personality, behavior, and language.",x:400,y:60,r:32,color:"#5F8DBB",text:"#ffffff",links:["cognition"]},
-
-    {id:"lewy",name:"Lewy Body Dementia",definition:"A dementia associated with abnormal protein deposits in brain cells.",x:950,y:520,r:32,color:"#5F8DBB",text:"#ffffff",links:["dementia"]},
-
-    {id:"vascular",name:"Vascular Dementia",definition:"A dementia caused by damage related to reduced blood flow in the brain.",x:500,y:760,r:32,color:"#5F8DBB",text:"#ffffff",links:["dementia"]},
-
-    {id:"stroke",name:"Stroke",definition:"A medical event caused by interrupted blood flow to part of the brain.",x:950,y:760,r:25,color:"#A9C7E8",text:"#16324F",links:["vascular"]}
-];
-
-
-function getTerm(id){
-    return glossaryTerms.find(term=>term.id===id);
+    update() {
+        this.obj.pos.addIp(this.vel);
+        this.vel.sMulIp(0.6)
+    }
+}
+const NODES = { // todo: move to more json like structure for initializing the nodes so phillip or some1 can more easily grunt work one of these out
+    "test":  new Node(new Circle2D(Vector.two(200, 200), 30), { "link": "#test",  "name": "test", "connections": ["test2", "test3"]}),
+    "test2": new Node(new Circle2D(Vector.two(300, 300), 30), { "link": "#test2", "name": "test2"}),
+    "test3": new Node(new Circle2D(Vector.two(300, 200), 30), { "link": "#test3", "name": "test3", "connections": ["test2"]}),
+    "test4": new Node(new Circle2D(Vector.two(200, 400), 30), { "link": "#test3", "name": "test3", "connections": ["test"]}),
 }
 
+class Engine {
+    constructor(ctx) {
+        this.ctx = ctx;
 
-function drawConnections(svg){
-
-    glossaryTerms.forEach(term=>{
-
-        term.links.forEach(link=>{
-
-            const target=getTerm(link);
-
-            if(target && term.id < target.id){
-
-                const line=document.createElementNS(
-                    "http://www.w3.org/2000/svg",
-                    "line"
-                );
-
-                line.setAttribute("x1",term.x);
-                line.setAttribute("y1",term.y);
-                line.setAttribute("x2",target.x);
-                line.setAttribute("y2",target.y);
-
-                line.classList.add("graph-line");
-
-                svg.appendChild(line);
+        this.data = {
+            "cursor": {
+                "obj": new Rect2D(Vector.two(0, 0), 10, 10),
+                "down": false,
+                "last_pos": Vector.two(0, 0),
+                "grabbedNode": null,
+                "grabbedNodeStartPos": null,
+                "hasDragged": false
             }
+        }
+        this.scale = 1;
+        this.offset = Vector.two(0, 0);
+    }
+    setupHandlers() {
+        const canvas = this.ctx.canvas;
+        window.addEventListener("mousemove", e => {
+            const rect = canvas.getBoundingClientRect()
+            this.data.cursor.last_pos.setIp(this.data.cursor.obj.pos);
+            this.data.cursor.obj.pos.x = e.clientX - rect.left;
+            this.data.cursor.obj.pos.y = e.clientY - rect.top;
         });
-    });
-}
-
-
-function drawNodes(svg){
-
-    glossaryTerms.forEach(term=>{
-
-        const group=document.createElementNS(
-            "http://www.w3.org/2000/svg",
-            "g"
-        );
-
-        group.classList.add("graph-group");
-
-
-        const circle=document.createElementNS(
-            "http://www.w3.org/2000/svg",
-            "circle"
-        );
-
-        circle.setAttribute("cx",term.x);
-        circle.setAttribute("cy",term.y);
-        circle.setAttribute("r",term.r);
-        circle.setAttribute("fill",term.color);
-
-        circle.classList.add("graph-node");
-
-
-        const text=document.createElementNS(
-            "http://www.w3.org/2000/svg",
-            "text"
-        );
-
-        text.setAttribute("x",term.x);
-        text.setAttribute("y",term.y);
-        text.setAttribute("fill",term.text);
-        text.classList.add("graph-label");
-
-        text.textContent=term.name;
-
-
-        group.appendChild(circle);
-        group.appendChild(text);
-
-
-        group.addEventListener("click",()=>{
-
-            window.location.hash=term.id;
-
-            document
-            .getElementById(term.id)
-            ?.scrollIntoView({
-                behavior:"smooth"
-            });
-
+        canvas.addEventListener("mousedown", e => { this.data.cursor.down = true; this.onClick(); })
+        window.addEventListener("mouseup", e =>   { this.data.cursor.down = false; this.onRelease(); })
+        canvas.addEventListener("wheel", e => {
+            e.preventDefault();
+            const rect = canvas.getBoundingClientRect();
+        
+            const mouse = Vector.two(e.clientX - rect.left, e.clientY - rect.top);
+            const oldScale = this.scale;
+            if (e.deltaY < 0) this.scale *= 1.1;
+            else this.scale *= 0.9;
+        
+            this.scale = Math.max(0.1, Math.min(this.scale, 5));
+        
+            this.offset.x = mouse.x - (mouse.x - this.offset.x) * (this.scale / oldScale);
+            this.offset.y = mouse.y - (mouse.y - this.offset.y) * (this.scale / oldScale);
         });
+    }
 
-
-        svg.appendChild(group);
-
-    });
-}
-
-
-function createMap(){
-
-    const svg=document.getElementById("glossary-map");
-
-    if(!svg)return;
-
-    drawConnections(svg);
-    drawNodes(svg);
-}
-
-
-function createGlossary(){
-
-    const container=document.getElementById("glossary-content");
-
-    if(!container)return;
-
-
-    let currentLetter="";
-
-
-    const sorted=[...glossaryTerms].sort((a,b)=>
-        a.name.localeCompare(b.name)
-    );
-
-
-    sorted.forEach(term=>{
-
-        const letter=term.name.charAt(0).toUpperCase();
-
-
-        if(letter!==currentLetter){
-
-            currentLetter=letter;
-
-
-            const heading=document.createElement("h2");
-
-            heading.textContent=letter;
-
-            heading.id=letter;
-
-            container.appendChild(heading);
-
+    onClick() {
+        Object.values(NODES).forEach(n => {
+            const screenPosCircle = new Circle2D(Vector.two(n.obj.pos.x * this.scale + this.offset.x,
+                n.obj.pos.y * this.scale + this.offset.y), n.obj.r * this.scale);
+            if(screenPosCircle.collides(this.data.cursor.obj)) {
+                this.data.cursor.grabbedNode = n;
+                this.data.cursor.grabbedNodeStartPos = n.obj.pos.copy();
+                this.data.cursor.hasDragged = false;
+            }
+        })
+    }
+    onRelease() {
+        const node = this.data.cursor.grabbedNode;
+    
+        if(node != null && !this.data.cursor.hasDragged) window.location.href = node.link;
+    
+        this.data.cursor.grabbedNode = null;
+        this.data.cursor.hasDragged = false;
+    }
+    init() {
+        this.setupHandlers();
+    }
+    tick(elapsed) {
+        if(this._previousElapsed === null) {
+            this._previousElapsed = elapsed;
+            window.requestAnimationFrame(this.tick.bind(this));
+            return;
+        }
+    
+        const delta = Math.min(
+            (elapsed - this._previousElapsed) / 1000,
+            0.12
+        );
+    
+        this._previousElapsed = elapsed;
+    
+        this.update(delta);
+        this.render();
+    
+        window.requestAnimationFrame(this.tick.bind(this));
+    }
+    update(delta) { // todo: scale physics w/ delta
+        if(this.data.cursor.down) {
+            if(this.data.cursor.grabbedNode == null) {
+                this.offset.subIp(this.data.cursor.obj.pos.sub(this.data.cursor.last_pos).invert());
+                this.data.cursor.last_pos.setIp(this.data.cursor.obj.pos);
+            } else {
+                if (this.data.cursor.obj.pos.dist(this.data.cursor.last_pos) > 2) {
+                    this.data.cursor.hasDragged = true;
+                }
+                const movement = this.data.cursor.obj.pos.sub(this.data.cursor.last_pos).sMul(1 / this.scale);
+                this.data.cursor.grabbedNode.obj.pos.addIp(movement);
+                this.data.cursor.last_pos.setIp(this.data.cursor.obj.pos);
+            }
         }
 
+        const nodes = Object.values(NODES);
 
-        const article=document.createElement("article");
+        for (let i = 0; i < nodes.length; i++) {
+            for (let j = i + 1; j < nodes.length; j++) {
+                const a = nodes[i]; const b = nodes[j];
 
-        article.className="glossary-entry";
+                const delta = a.obj.pos.sub(b.obj.pos);
+                const distance = Math.max(a.obj.pos.dist(b.obj.pos), 1);
+                const force = REPULSION_STRENGTH / (distance * distance);
+                const dir = delta.normalize();
+                const forceVector = dir.sMul(force);
 
-        article.id=term.id;
-
-
-        article.innerHTML=`
-
-            <h3>${term.name}</h3>
-
-            <p>${term.definition}</p>
-
-        `;
-
-
-        container.appendChild(article);
-
-    });
-
-}
-
-
-function setupSearch(){
-
-    const search=document.getElementById("glossary-search");
-
-    if(!search)return;
-
-
-    search.addEventListener("input",()=>{
-
-        const value=search.value.toLowerCase();
-
-
-        const result=glossaryTerms.find(term=>
-            term.name.toLowerCase().includes(value)
-        );
-
-
-        if(result && value.length>1){
-
-            window.location.hash=result.id;
-
-            document
-            .getElementById(result.id)
-            ?.scrollIntoView({
-                behavior:"smooth"
-            });
+                a.vel.addIp(forceVector); b.vel.subIp(forceVector);
+            }
         }
 
-    });
-}
+        nodes.forEach(n => {
+            n.connections.forEach(conn => {
+                const connNode = NODES[conn];
+                const pos1 = connNode.obj.pos;
+                const pos2 = n.obj.pos;
 
-function setupAlphabet(){
+                const delta = pos1.sub(pos2);
+                const distance = pos1.dist(pos2);
+                const stretch = distance - SPRING_RESTING_LENGTH;
+                const force = stretch * SPRING_STIFFNESS;
+                const dir = delta.normalize();
+                const forceVector = dir.sMul(force);
 
-    document.querySelectorAll(".alphabet a")
-    .forEach(link=>{
+                n.vel.addIp(forceVector);
+                connNode.vel.subIp(forceVector);
+            })
+           n.update()
+        })
+    }
+    render() {
+        const ctx = this.ctx;
+        ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
 
-        link.addEventListener("click",event=>{
+        ctx.strokeStyle = "rgba(0, 0, 0, 1)"
+        ctx.strokeRect(0, 0, ctx.canvas.width, ctx.canvas.height)
 
-            event.preventDefault();
-
-
-            const target=
-            document.getElementById(
-                link.getAttribute("href").substring(1)
-            );
-
-
-            if(target){
-
-                target.scrollIntoView({
-                    behavior:"smooth"
-                });
-
+        Object.values(NODES).forEach(n => {
+            if(n.connections != undefined) {
+                n.connections.forEach(c => {
+                    const connNode = NODES[c];
+                    if(!connNode) return;
+                    ctx.lineWidth = 2;
+                    ctx.strokeStyle = "rgba(0, 0, 0, 0.5)"
+                    ctx.beginPath();
+                    ctx.moveTo(connNode.obj.pos.x * this.scale + this.offset.x, connNode.obj.pos.y * this.scale + this.offset.y);
+                    ctx.lineTo(n.obj.pos.x * this.scale + this.offset.x, n.obj.pos.y * this.scale + this.offset.y)
+                    ctx.stroke()
+                })
             }
+        })
 
-        });
+        Object.values(NODES).forEach(n => {
+            const nx = n.obj.pos.x * this.scale + this.offset.x;
+            const ny = n.obj.pos.y * this.scale + this.offset.y
+            const nr = n.obj.r*this.scale;
+            ctx.beginPath();
+            ctx.fillStyle = n.color;
+            ctx.arc(nx, ny, nr, 0, 2 * Math.PI);
+            ctx.fill();
 
-    });
-
+            ctx.font = "17px Arial"; // could scale w/ scale but looks better w/o
+            ctx.fillStyle = "black";
+            const textWidth = ctx.measureText(n.name).width;
+            ctx.fillText(n.name, nx - textWidth / 2, ny - nr - 8);
+        })
+        
+    }
 }
 
-
-document.addEventListener("DOMContentLoaded",()=>{
-
-    createMap();
-
-    createGlossary();
-
-    setupSearch();
-
-    setupAlphabet();
-
-});
+const obj = document.getElementById("mindmap");
+obj.width = CANVAS_SIZE.x;
+obj.height = CANVAS_SIZE.y;
+const engine = new Engine(obj.getContext("2d"));
+engine.init();
+window.requestAnimationFrame(engine.tick.bind(engine));
