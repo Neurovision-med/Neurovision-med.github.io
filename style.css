@@ -12,6 +12,7 @@
     --border: #D9E6EC;
     --shadow: 0 5px 20px rgba(0,0,0,0.08);
     --shadow-hover: 0 10px 25px rgba(0,0,0,0.12);
+    --shadow-hover-small: 0 10px 25px rgba(0,0,0,0.1);
 }
 
 * {
