@@ -27,7 +27,6 @@ let data = null; try {
     if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
 
     data = await response.json();
-console.log(data);
 } catch (error) {
     console.error("Could not load glossary data:", error);
 }
@@ -108,7 +107,6 @@ class Mindmap {
                 case "ArrowUp": {
                     if(!this.data.debug) break;
                     e.preventDefault();
-                    console.log("yo")
                     SPRING_RESTING_LENGTH += 20
                     break;
                 }
@@ -367,5 +365,3 @@ container.addEventListener("scroll", e => { updateCards() });
 window.addEventListener("resize", () => { updateCards() });
 propogateCards();
 updateCards();
-
-console.log(data)
