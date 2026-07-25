@@ -14,6 +14,7 @@
     <title>GLOSSARY | NeuroVision</title>
 
     <link rel="stylesheet" href="../style.css" />
+    <link rel="stylesheet" href="glossary.css" />
 
     <script type="module" src="glossary.js"></script>
     <link rel="icon" href="../assets/images/logo.png" type="image/x-icon">
@@ -148,8 +149,11 @@
         <div class="hero-text">
           <div style="display: flex; flex-direction: row; justify-content: center; align-items: center;;">
             <canvas id="mindmap"></canvas>
-            <div style="margin-left: 20vw;">
-              <h1>put glossary here</h1>
+            <div style="margin-left: 20vw; display: flex; flex-direction: column;">
+              <input id="glossary-search" type="text" placeholder="Search terms.." style="width: 30vw; margin-bottom: 10vh;;">
+              <div class="info-cards no-scrollbar" id="cards">
+                <div class="glossary-card">padding card</div>
+            </div>
             </div>
           </div>
             

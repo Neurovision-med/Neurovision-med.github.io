@@ -1,0 +1,58 @@
+/*
+ * author thebadlorax
+ * created on 25-07-2026-10h-01m
+ * github: https://github.com/thebadlorax
+ * copyright 2026
+*/
+
+.glossary-card {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    height: 200px;
+
+    background: white;
+    padding: 35px 25px;
+    border-radius: 15px;
+    border: 1px solid var(--border);
+    text-align: center;
+    transition: 0.25s;
+}
+
+.glossary-card p {
+    margin-top: auto;
+}
+
+.glossary-card h3 {
+    color: var(--navy);
+    margin: 0 0 10px 0;
+}
+
+.glossary-card p {
+    color: var(--gray);
+    margin: 0;
+}
+
+/*.glossary-card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-hover);
+}*/
+
+.info-cards {
+    overflow-y: auto;
+    height: 500px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    overscroll-behavior: none;
+}
+
+.no-scrollbar {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+  

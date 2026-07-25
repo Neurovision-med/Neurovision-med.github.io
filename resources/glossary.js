@@ -22,15 +22,14 @@ let SPRING_RESTING_LENGTH = 200;
 const SPRING_STIFFNESS = 0.03;
 const REPULSION_STRENGTH = 3000;
 let GRABBED_NODE_IMMUNE_TO_SIMULATION = true;
-// todo: maybe add a menu to change these in the thing (only if i feel very inspired to do that tho thats alot)
 
 class Node {
     constructor(obj, data) {
         this.vel = Vector.two(0, 0)
         this.obj = obj;
-        this.name = data.name;
         this.color = data.color ?? `rgba(${Math.floor(Math.random()*128)}, ${Math.floor(Math.random()*128)}, ${Math.floor(Math.random()*128)}, 1)`;
-        this.link = data.link;
+        this.link = data.link ?? data.name;
+        this.name = data.name;
         this.connections = data.connections ?? [];
     }
 
@@ -40,13 +39,61 @@ class Node {
     }
 }
 const NODES = { // todo: move to more json like structure for initializing the nodes so phillip or some1 can more easily grunt work one of these out
-    "test":  new Node(new Circle2D(Vector.two(200, 200), 30), { "link": "#test",  "name": "test", "connections": ["test2", "test3"]}),
-    "test2": new Node(new Circle2D(Vector.two(300, 300), 30), { "link": "#test2", "name": "test2"}),
-    "test3": new Node(new Circle2D(Vector.two(300, 200), 30), { "link": "#test3", "name": "test3", "connections": ["test2"]}),
-    "test4": new Node(new Circle2D(Vector.two(200, 400), 30), { "link": "#test4", "name": "test4", "connections": ["test"]}),
+    "test":  new Node(new Circle2D(Vector.two(200, 200), 30), { "link": "test",  "name": "test", "connections": ["test2", "test3"]}),
+    "test2": new Node(new Circle2D(Vector.two(300, 300), 30), { "link": "test2", "name": "test2"}),
+    "test3": new Node(new Circle2D(Vector.two(300, 200), 30), { "link": "test3", "name": "test3", "connections": ["test2"]}),
+    "test4": new Node(new Circle2D(Vector.two(200, 400), 30), { "link": "test4", "name": "test4", "connections": ["test"]}),
 }
+const glossary_cards = [
+    {
+        "id": "test",
+        "header": "test element 1",
+        "description": "test description 1"
+    },
+    {
+        "id": "test2",
+        "header": "test element 2",
+        "description": "test description 2"
+    },
+    {
+        "id": "test3",
+        "header": "test element 3",
+        "description": "test description 3"
+    },
+    {
+        "id": "a",
+        "header": "test padding element",
+        "description": "this is to test scrolling w/ the mindmap"
+    },
+    {
+        "id": "a",
+        "header": "test padding element",
+        "description": "this is to test scrolling w/ the mindmap"
+    },
+    {
+        "id": "a",
+        "header": "test padding element",
+        "description": "this is to test scrolling w/ the mindmap"
+    },
+    {
+        "id": "a",
+        "header": "test padding element",
+        "description": "this is to test scrolling w/ the mindmap"
+    },
+    {
+        "id": "a",
+        "header": "test padding element",
+        "description": "this is to test scrolling w/ the mindmap"
+    },
+    {
+        "id": "test4",
+        "header": "test element 4",
+        "description": "test description 4"
+    }
+]
+let glossary_card_map = {};
 
-class Engine {
+class Mindmap {
     constructor(ctx) {
         this.ctx = ctx;
 
@@ -132,7 +179,13 @@ class Engine {
     onRelease() {
         const node = this.data.cursor.grabbedNode;
     
-        if(node != null && !this.data.cursor.hasDragged) window.location.href = node.link;
+        if(node != null && !this.data.cursor.hasDragged) {
+            glossary_card_map[node.link].scrollIntoView({
+                behavior: "smooth",
+                block: "center"
+            });
+            updateCards()
+        }
     
         this.data.cursor.grabbedNode = null;
         this.data.cursor.hasDragged = false;
@@ -231,8 +284,14 @@ class Engine {
         const ctx = this.ctx;
         ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
 
-        ctx.strokeStyle = "rgba(0, 0, 0, 1)"
-        ctx.strokeRect(0, 0, ctx.canvas.width, ctx.canvas.height)
+        if(false) {
+            ctx.fillStyle = "rgba(255, 255, 255, 1)"
+            ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height)
+        }
+        if(true) {
+            ctx.strokeStyle = "rgba(0, 0, 0, 1)"
+            ctx.strokeRect(0, 0, ctx.canvas.width, ctx.canvas.height)
+        }
 
         Object.values(NODES).forEach(n => {
             if(n.connections != undefined) {
@@ -285,6 +344,53 @@ class Engine {
 const obj = document.getElementById("mindmap");
 obj.width = CANVAS_SIZE.x;
 obj.height = CANVAS_SIZE.y;
-const engine = new Engine(obj.getContext("2d"));
-engine.init();
-window.requestAnimationFrame(engine.tick.bind(engine));
+const mm = new Mindmap(obj.getContext("2d"));
+mm.init();
+window.requestAnimationFrame(mm.tick.bind(mm));
+
+// info card stuff
+const container = document.getElementById("cards");
+
+const updateCards = () => {
+    const center = container.getBoundingClientRect().top +container.clientHeight / 2;
+    for (const card of container.children) {
+        const rect = card.getBoundingClientRect();
+        const cardCenter = rect.top + rect.height / 2;
+
+        const distance = Math.abs(cardCenter - center);
+        const half = container.clientHeight / 2;
+        const fadeStart = half * 0.6;
+        let t = (distance - fadeStart) / (half - fadeStart); t = Math.max(0, Math.min(t, 1));
+        const minScale = 0.40; const scale = minScale + (1 - minScale) * Math.cos(t * Math.PI / 2);
+
+        card.style.transform = `scale(${scale})`;
+        card.style.opacity = scale;
+    }
+}
+
+// <div class="glossary-card" id="card-">1</div>
+const spawnCard = (data) => {
+    const ele = document.createElement("div");
+    ele.classList.add("glossary-card");
+    glossary_card_map[data.id] = ele;
+    const header = document.createElement("h3");
+    header.textContent = data.header;
+    const description = document.createElement("p");
+    description.textContent = data.description
+    ele.appendChild(header);
+    ele.appendChild(description)
+    container.appendChild(ele);
+}
+const propogateCards = () => {
+    glossary_cards.forEach(c => { spawnCard(c); })
+    // <div class="glossary-card">padding card</div>
+    const padding_card = document.createElement("div")
+    padding_card.classList.add("glossary-card");
+    padding_card.textContent = "padding card";
+    container.appendChild(padding_card);
+}
+
+container.addEventListener("scroll", e => { updateCards() });
+window.addEventListener("resize", () => { updateCards() });
+propogateCards();
+updateCards();
