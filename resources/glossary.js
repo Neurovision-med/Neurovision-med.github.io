@@ -14,7 +14,24 @@
  *  - like when you go into the glossary after clicking something how to make not boring?
 */
 import { Circle2D, Rect2D, Vector } from "./maths.js"; // copied my maths library from my other projects (i should add springs to it)
-import data from `./glossary_data.json` with { type: "json" }
+
+//import data from "./glossary_data.json" with { type: "json" }
+///*
+let data = null; try {
+    const baseUrl = window.location.origin + window.location.pathname;
+
+    const cleanUrl = new URL('glossary_data.json', baseUrl).href;
+
+    const response = await fetch(cleanUrl);
+
+    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+
+    data = await response.json();
+console.log(data);
+} catch (error) {
+    console.error("Could not load glossary data:", error);
+}
+//*/
 
 const CANVAS_SIZE = Vector.two(data.mindmap.settings.canvas_size.w, data.mindmap.settings.canvas_size.h);
 
