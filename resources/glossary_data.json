@@ -1,0 +1,114 @@
+{
+    "mindmap": {
+        "nodes": {
+            "test": {
+                "x": 200,
+                "y": 200,
+                "r": 30,
+
+                "node_data": {
+                    "link": "test",
+                    "name": "test",
+                    "connections": ["test2", "test3"]
+                }
+            },
+            "test2": {
+                "x": 300,
+                "y": 300,
+                "r": 30,
+
+                "node_data": {
+                    "link": "test2",
+                    "name": "test2"
+                }
+            },
+            "test3": {
+                "x": 300,
+                "y": 200,
+                "r": 30,
+
+                "node_data": {
+                    "link": "test3",
+                    "name": "test3",
+                    "connections": ["test2"]
+                }
+            },
+            "test4": {
+                "x": 200,
+                "y": 400,
+                "r": 30,
+
+                "node_data": {
+                    "link": "test4",
+                    "name": "test4",
+                    "connections": ["test"]
+                }
+            }
+        },
+        "settings": {
+            "spring_resting_length": 200,
+            "spring_stiffness": 0.04,
+            "repulsion_strength": 5000,
+            "grabbed_node_immune_to_simulation": true,
+            "debug_keybind": "=",
+            "canvas_size": {
+                "w": 512,
+                "h": 512
+            },
+            "background": {
+                "enabled": false,
+                "color": "rgba(255, 255, 255, 1)"
+            },
+            "outline": true
+        }
+    },
+    "glossary": {
+        "cards": [
+            {
+                "id": "test",
+                "header": "test element 1",
+                "description": "test description 1"
+            },
+            {
+                "id": "test2",
+                "header": "test element 2",
+                "description": "test description 2"
+            },
+            {
+                "id": "test3",
+                "header": "test element 3",
+                "description": "test description 3"
+            },
+            {
+                "id": "a",
+                "header": "test padding element",
+                "description": "this is to test scrolling w/ the mindmap"
+            },
+            {
+                "id": "a",
+                "header": "test padding element",
+                "description": "this is to test scrolling w/ the mindmap"
+            },
+            {
+                "id": "a",
+                "header": "test padding element",
+                "description": "this is to test scrolling w/ the mindmap"
+            },
+            {
+                "id": "a",
+                "header": "test padding element",
+                "description": "this is to test scrolling w/ the mindmap"
+            },
+            {
+                "id": "a",
+                "header": "test padding element",
+                "description": "this is to test scrolling w/ the mindmap"
+            },
+            {
+                "id": "test4",
+                "header": "test element 4",
+                "description": "test description 4"
+            }
+        ]
+    }
+}

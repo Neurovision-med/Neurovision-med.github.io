@@ -14,14 +14,15 @@
  *  - like when you go into the glossary after clicking something how to make not boring?
 */
 import { Circle2D, Rect2D, Vector } from "./maths.js"; // copied my maths library from my other projects (i should add springs to it)
+import data from `./glossary_data.json` with { type: "json" }
 
-const CANVAS_SIZE = Vector.two(512, 512);
+const CANVAS_SIZE = Vector.two(data.mindmap.settings.canvas_size.w, data.mindmap.settings.canvas_size.h);
 
 // physcis constants
-let SPRING_RESTING_LENGTH = 200;
-const SPRING_STIFFNESS = 0.03;
-const REPULSION_STRENGTH = 3000;
-let GRABBED_NODE_IMMUNE_TO_SIMULATION = true;
+let SPRING_RESTING_LENGTH = data.mindmap.settings.spring_resting_length;
+const SPRING_STIFFNESS = data.mindmap.settings.spring_stiffness;
+const REPULSION_STRENGTH = data.mindmap.settings.repulsion_strength;
+let GRABBED_NODE_IMMUNE_TO_SIMULATION = data.mindmap.settings.grabbed_node_immune_to_simulation;
 
 class Node {
     constructor(obj, data) {
@@ -38,59 +39,14 @@ class Node {
         this.vel.sMulIp(0.6)
     }
 }
-const NODES = { // todo: move to more json like structure for initializing the nodes so phillip or some1 can more easily grunt work one of these out
-    "test":  new Node(new Circle2D(Vector.two(200, 200), 30), { "link": "test",  "name": "test", "connections": ["test2", "test3"]}),
-    "test2": new Node(new Circle2D(Vector.two(300, 300), 30), { "link": "test2", "name": "test2"}),
-    "test3": new Node(new Circle2D(Vector.two(300, 200), 30), { "link": "test3", "name": "test3", "connections": ["test2"]}),
-    "test4": new Node(new Circle2D(Vector.two(200, 400), 30), { "link": "test4", "name": "test4", "connections": ["test"]}),
+
+// setup data from json
+const node_data = data.mindmap.nodes;
+let NODES = {}
+for (const [key, value] of Object.entries(node_data)) {
+    NODES[key] = new Node(new Circle2D(Vector.two(value.x, value.y), value.r), value.node_data)
 }
-const glossary_cards = [
-    {
-        "id": "test",
-        "header": "test element 1",
-        "description": "test description 1"
-    },
-    {
-        "id": "test2",
-        "header": "test element 2",
-        "description": "test description 2"
-    },
-    {
-        "id": "test3",
-        "header": "test element 3",
-        "description": "test description 3"
-    },
-    {
-        "id": "a",
-        "header": "test padding element",
-        "description": "this is to test scrolling w/ the mindmap"
-    },
-    {
-        "id": "a",
-        "header": "test padding element",
-        "description": "this is to test scrolling w/ the mindmap"
-    },
-    {
-        "id": "a",
-        "header": "test padding element",
-        "description": "this is to test scrolling w/ the mindmap"
-    },
-    {
-        "id": "a",
-        "header": "test padding element",
-        "description": "this is to test scrolling w/ the mindmap"
-    },
-    {
-        "id": "a",
-        "header": "test padding element",
-        "description": "this is to test scrolling w/ the mindmap"
-    },
-    {
-        "id": "test4",
-        "header": "test element 4",
-        "description": "test description 4"
-    }
-]
+const glossary_cards = data.glossary.cards
 let glossary_card_map = {};
 
 class Mindmap {
@@ -121,7 +77,7 @@ class Mindmap {
         });
         window.addEventListener("keydown", e => {
             switch(e.key) {
-                case "=": {
+                case data.mindmap.settings.debug_keybind: {
                     e.preventDefault()
                     this.data.debug = !this.data.debug;
                     break
@@ -182,7 +138,7 @@ class Mindmap {
         if(node != null && !this.data.cursor.hasDragged) {
             glossary_card_map[node.link].scrollIntoView({
                 behavior: "smooth",
-                block: "center"
+                block: ""
             });
             updateCards()
         }
@@ -284,11 +240,11 @@ class Mindmap {
         const ctx = this.ctx;
         ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
 
-        if(false) {
-            ctx.fillStyle = "rgba(255, 255, 255, 1)"
+        if(data.mindmap.settings.background.enabled) {
+            ctx.fillStyle = data.mindmap.settings.background.color
             ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height)
         }
-        if(true) {
+        if(data.mindmap.settings.outline) {
             ctx.strokeStyle = "rgba(0, 0, 0, 1)"
             ctx.strokeRect(0, 0, ctx.canvas.width, ctx.canvas.height)
         }
@@ -298,8 +254,8 @@ class Mindmap {
                 n.connections.forEach(c => {
                     const connNode = NODES[c];
                     if(!connNode) return;
-                    ctx.lineWidth = 2;
-                    ctx.strokeStyle = "rgba(0, 0, 0, 0.5)"
+                    ctx.lineWidth = 1;
+                    ctx.strokeStyle = "rgba(0, 0, 0, 0.3)"
                     ctx.beginPath();
                     ctx.moveTo(connNode.obj.pos.x * this.scale + this.offset.x, connNode.obj.pos.y * this.scale + this.offset.y);
                     ctx.lineTo(n.obj.pos.x * this.scale + this.offset.x, n.obj.pos.y * this.scale + this.offset.y)
@@ -394,3 +350,5 @@ container.addEventListener("scroll", e => { updateCards() });
 window.addEventListener("resize", () => { updateCards() });
 propogateCards();
 updateCards();
+
+console.log(data)
