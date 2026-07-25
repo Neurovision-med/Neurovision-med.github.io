@@ -21,6 +21,7 @@ const CANVAS_SIZE = Vector.two(512, 512);
 const SPRING_RESTING_LENGTH = 200;
 const SPRING_STIFFNESS = 0.03;
 const REPULSION_STRENGTH = 3000;
+const MAKE_GRABBED_NODE_IMMUNE_TO_SIMULATION = true;
 // todo: maybe add a menu to change these in the thing (only if i feel very inspired to do that tho thats alot)
 
 class Node {
@@ -156,10 +157,12 @@ class Engine {
                 const dir = delta.normalize();
                 const forceVector = dir.sMul(force);
 
-                a.vel.addIp(forceVector); b.vel.subIp(forceVector);
+                if(a != this.data.cursor.grabbedNode || !MAKE_GRABBED_NODE_IMMUNE_TO_SIMULATION) a.vel.addIp(forceVector);
+                if(b != this.data.cursor.grabbedNode || !MAKE_GRABBED_NODE_IMMUNE_TO_SIMULATION) b.vel.subIp(forceVector);
             }
         }
 
+        document.body.style.cursor = ""
         nodes.forEach(n => {
             n.connections.forEach(conn => {
                 const connNode = NODES[conn];
@@ -173,11 +176,24 @@ class Engine {
                 const dir = delta.normalize();
                 const forceVector = dir.sMul(force);
 
-                n.vel.addIp(forceVector);
-                connNode.vel.subIp(forceVector);
+                if(n != this.data.cursor.grabbedNode || !MAKE_GRABBED_NODE_IMMUNE_TO_SIMULATION) n.vel.addIp(forceVector);
+                if(connNode != this.data.cursor.grabbedNode || !MAKE_GRABBED_NODE_IMMUNE_TO_SIMULATION) connNode.vel.subIp(forceVector);
             })
-           n.update()
+            n.update();
+
+            if(!this.data.cursor.down) {
+                const screenPosCircle = new Circle2D(Vector.two(n.obj.pos.x * this.scale + this.offset.x,
+                    n.obj.pos.y * this.scale + this.offset.y), n.obj.r * this.scale);
+                if(screenPosCircle.collides(this.data.cursor.obj)) {
+                    document.body.style.cursor = "alias"
+                }
+            }
         })
+        if(this.data.cursor.down) {
+            if(this.data.cursor.hasDragged) document.body.style.cursor = "move";
+            else if(this.data.cursor.grabbedNode != null) document.body.style.cursor = "alias" // technically doesn't do anything but if i wanna chane it later its good it's here
+            else document.body.style.cursor = "grabbing"
+        }
     }
     render() {
         const ctx = this.ctx;
