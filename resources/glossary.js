@@ -15,22 +15,17 @@
 */
 import { Circle2D, Rect2D, Vector } from "./maths.js"; // copied my maths library from my other projects (i should add springs to it)
 
-//import data from "./glossary_data.json" with { type: "json" }
-///*
+// when running this locally you have to swap out these to get data working right, just goofy ahh w/ the pages build
+import data from "./glossary_data.json" with { type: "json" }
+/*
 let data = null; try {
     const baseUrl = window.location.origin + window.location.pathname;
-
     const cleanUrl = new URL('glossary_data.json', baseUrl).href;
-
     const response = await fetch(cleanUrl);
-
     if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-
     data = await response.json();
-} catch (error) {
-    console.error("Could not load glossary data:", error);
-}
-//*/
+} catch (error) { console.error("Could not load glossary data:", error); }
+*/
 
 const CANVAS_SIZE = Vector.two(data.mindmap.settings.canvas_size.w, data.mindmap.settings.canvas_size.h);
 
@@ -39,6 +34,8 @@ let SPRING_RESTING_LENGTH = data.mindmap.settings.spring_resting_length;
 const SPRING_STIFFNESS = data.mindmap.settings.spring_stiffness;
 const REPULSION_STRENGTH = data.mindmap.settings.repulsion_strength;
 let GRABBED_NODE_IMMUNE_TO_SIMULATION = data.mindmap.settings.grabbed_node_immune_to_simulation;
+
+const container = document.getElementById("cards");
 
 class Node {
     constructor(obj, data) {
@@ -56,7 +53,6 @@ class Node {
     }
 }
 
-// setup data from json
 const node_data = data.mindmap.nodes;
 let NODES = {}
 for (const [key, value] of Object.entries(node_data)) {
@@ -151,9 +147,11 @@ class Mindmap {
         const node = this.data.cursor.grabbedNode;
     
         if(node != null && !this.data.cursor.hasDragged) {
-            glossary_card_map[node.link].scrollIntoView({
+            const element = glossary_card_map[node.link];
+            const top = element.getBoundingClientRect().top - container.getBoundingClientRect().top + container.scrollTop;
+            container.scrollTo({
+                top: top - (container.clientHeight - element.clientHeight) / 2,
                 behavior: "smooth",
-                block: ""
             });
             updateCards()
         }
@@ -320,8 +318,6 @@ mm.init();
 window.requestAnimationFrame(mm.tick.bind(mm));
 
 // info card stuff
-const container = document.getElementById("cards");
-
 const updateCards = () => {
     const center = container.getBoundingClientRect().top +container.clientHeight / 2;
     for (const card of container.children) {
@@ -330,11 +326,11 @@ const updateCards = () => {
 
         const distance = Math.abs(cardCenter - center);
         const half = container.clientHeight / 2;
-        const fadeStart = half * 0.6;
+        const fadeStart = half * 0.5;
         let t = (distance - fadeStart) / (half - fadeStart); t = Math.max(0, Math.min(t, 1));
-        const minScale = 0.40; const scale = minScale + (1 - minScale) * Math.cos(t * Math.PI / 2);
+        const minScale = 0.80; const scale = minScale + (1 - minScale) * Math.cos(t * Math.PI / 2);
 
-        card.style.transform = `scale(${scale})`;
+        card.style.scale = `${scale}`;
         card.style.opacity = scale;
     }
 }
@@ -356,8 +352,7 @@ const propogateCards = () => {
     glossary_cards.forEach(c => { spawnCard(c); })
     // <div class="glossary-card">padding card</div>
     const padding_card = document.createElement("div")
-    padding_card.classList.add("glossary-card");
-    padding_card.textContent = "padding card";
+    padding_card.classList.add("spacer");
     container.appendChild(padding_card);
 }
 

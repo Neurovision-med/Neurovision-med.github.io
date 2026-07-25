@@ -19,6 +19,15 @@
     transition: 0.05s;
 }
 
+.glossary-card:hover {
+    transform: translateX(-8px);
+    box-shadow: var(--shadow-hover-small);
+}
+
+.spacer {
+    height: 100px;
+}
+
 .glossary-card p {
     margin-top: auto;
 }
