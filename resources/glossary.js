@@ -21,7 +21,7 @@ const CANVAS_SIZE = Vector.two(512, 512);
 const SPRING_RESTING_LENGTH = 200;
 const SPRING_STIFFNESS = 0.03;
 const REPULSION_STRENGTH = 3000;
-const MAKE_GRABBED_NODE_IMMUNE_TO_SIMULATION = true;
+const GRABBED_NODE_IMMUNE_TO_SIMULATION = true;
 // todo: maybe add a menu to change these in the thing (only if i feel very inspired to do that tho thats alot)
 
 class Node {
@@ -43,7 +43,7 @@ const NODES = { // todo: move to more json like structure for initializing the n
     "test":  new Node(new Circle2D(Vector.two(200, 200), 30), { "link": "#test",  "name": "test", "connections": ["test2", "test3"]}),
     "test2": new Node(new Circle2D(Vector.two(300, 300), 30), { "link": "#test2", "name": "test2"}),
     "test3": new Node(new Circle2D(Vector.two(300, 200), 30), { "link": "#test3", "name": "test3", "connections": ["test2"]}),
-    "test4": new Node(new Circle2D(Vector.two(200, 400), 30), { "link": "#test3", "name": "test3", "connections": ["test"]}),
+    "test4": new Node(new Circle2D(Vector.two(200, 400), 30), { "link": "#test4", "name": "test4", "connections": ["test"]}),
 }
 
 class Engine {
@@ -157,8 +157,8 @@ class Engine {
                 const dir = delta.normalize();
                 const forceVector = dir.sMul(force);
 
-                if(a != this.data.cursor.grabbedNode || !MAKE_GRABBED_NODE_IMMUNE_TO_SIMULATION) a.vel.addIp(forceVector);
-                if(b != this.data.cursor.grabbedNode || !MAKE_GRABBED_NODE_IMMUNE_TO_SIMULATION) b.vel.subIp(forceVector);
+                if(a != this.data.cursor.grabbedNode || !GRABBED_NODE_IMMUNE_TO_SIMULATION) a.vel.addIp(forceVector);
+                if(b != this.data.cursor.grabbedNode || !GRABBED_NODE_IMMUNE_TO_SIMULATION) b.vel.subIp(forceVector);
             }
         }
 
@@ -176,8 +176,8 @@ class Engine {
                 const dir = delta.normalize();
                 const forceVector = dir.sMul(force);
 
-                if(n != this.data.cursor.grabbedNode || !MAKE_GRABBED_NODE_IMMUNE_TO_SIMULATION) n.vel.addIp(forceVector);
-                if(connNode != this.data.cursor.grabbedNode || !MAKE_GRABBED_NODE_IMMUNE_TO_SIMULATION) connNode.vel.subIp(forceVector);
+                if(n != this.data.cursor.grabbedNode || !GRABBED_NODE_IMMUNE_TO_SIMULATION) n.vel.addIp(forceVector);
+                if(connNode != this.data.cursor.grabbedNode || !GRABBED_NODE_IMMUNE_TO_SIMULATION) connNode.vel.subIp(forceVector);
             })
             n.update();
 
