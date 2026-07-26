@@ -16,7 +16,11 @@
     border-radius: 15px;
     border: 1px solid var(--border);
     text-align: center;
-    transition: 0.05s;
+    transition: 0.25s;
+}
+
+.selected {
+    background: rgba(52, 247, 228, 0.3);
 }
 
 .glossary-card:hover {
