@@ -16,8 +16,8 @@
 import { Circle2D, Rect2D, Vector } from "./maths.js"; // copied my maths library from my other projects (i should add springs to it)
 
 // when running this locally you have to swap out these to get data working right, just goofy ahh w/ the pages build
-import data from "./glossary_data.json" with { type: "json" }
-/*
+//import data from "./glossary_data.json" with { type: "json" }
+///*
 let data = null; try {
     const baseUrl = window.location.origin + window.location.pathname;
     const cleanUrl = new URL('glossary_data.json', baseUrl).href;
@@ -25,7 +25,7 @@ let data = null; try {
     if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
     data = await response.json();
 } catch (error) { console.error("Could not load glossary data:", error); }
-*/
+//*/
 
 const CANVAS_SIZE = Vector.two(data.mindmap.settings.canvas_size.w, data.mindmap.settings.canvas_size.h);
 
