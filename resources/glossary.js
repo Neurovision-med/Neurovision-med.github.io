@@ -16,8 +16,8 @@
 import { Circle2D, Rect2D, Vector } from "./maths.js"; // copied my maths library from my other projects (i should add springs to it)
 
 // when running this locally you have to swap out these to get data working right, just goofy ahh w/ the pages build
-//import data from "./glossary_data.json" with { type: "json" }
-///*
+import data from "./glossary_data.json" with { type: "json" }
+/*
 let data = null; try {
     const baseUrl = window.location.origin + window.location.pathname;
     const cleanUrl = new URL('glossary_data.json', baseUrl).href;
@@ -25,7 +25,7 @@ let data = null; try {
     if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
     data = await response.json();
 } catch (error) { console.error("Could not load glossary data:", error); }
-//*/
+*/
 
 const CANVAS_SIZE = Vector.two(data.mindmap.settings.canvas_size.w, data.mindmap.settings.canvas_size.h);
 
@@ -56,7 +56,11 @@ class Node {
 const node_data = data.mindmap.nodes;
 let NODES = {}
 for (const [key, value] of Object.entries(node_data)) {
-    NODES[key] = new Node(new Circle2D(Vector.two(value.x, value.y), value.r), value.node_data)
+    let references = 0; for (const [key2, value2] of Object.entries(node_data)) {
+        if(value.node_data.connections != undefined && value.node_data.connections.map(n1 => n1.id).includes(key2)) references += 1;
+        if(value2.node_data.connections != undefined && value2.node_data.connections.map(n1 => n1.id).includes(key)) references += 1;
+    }
+    NODES[key] = new Node(new Circle2D(Vector.two(value.x, value.y), value.r+(data.mindmap.settings.connection_size_factor * references)), value.node_data)
 }
 const glossary_cards = data.glossary.cards
 let glossary_card_map = {};
@@ -223,13 +227,13 @@ class Mindmap {
         document.body.style.cursor = ""
         nodes.forEach(n => {
             n.connections.forEach(conn => {
-                const connNode = NODES[conn];
+                const connNode = NODES[conn.id];
                 const pos1 = connNode.obj.pos;
                 const pos2 = n.obj.pos;
 
                 const delta = pos1.sub(pos2);
                 const distance = pos1.dist(pos2);
-                const stretch = distance - SPRING_RESTING_LENGTH;
+                const stretch = distance - (conn.length ?? SPRING_RESTING_LENGTH);
                 const force = stretch * SPRING_STIFFNESS;
                 const dir = delta.normalize();
                 const forceVector = dir.sMul(force);
@@ -269,7 +273,7 @@ class Mindmap {
         Object.values(NODES).forEach(n => {
             if(n.connections != undefined) {
                 n.connections.forEach(c => {
-                    const connNode = NODES[c];
+                    const connNode = NODES[c.id];
                     if(!connNode) return;
                     ctx.lineWidth = 1;
                     ctx.strokeStyle = "rgba(0, 0, 0, 0.3)"
