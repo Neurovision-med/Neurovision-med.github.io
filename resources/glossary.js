@@ -16,7 +16,7 @@
 import { Circle2D, Rect2D, Vector } from "./maths.js"; // copied my maths library from my other projects (i should add springs to it)
 
 // when running this locally you have to swap out these to get data working right, just goofy ahh w/ the pages build
-//import data from "./glossary_data.json" with { type: "json" }
+//import data from "./alzheimers_mindmap_clean.json" with { type: "json" }
 ///*
 let data = null; try {
     const baseUrl = window.location.origin + window.location.pathname;
@@ -53,6 +53,7 @@ class Node {
     }
 }
 
+// preprocessing
 const node_data = data.mindmap.nodes;
 let NODES = {}
 for (const [key, value] of Object.entries(node_data)) {
@@ -80,8 +81,15 @@ class Mindmap {
             },
             "debug": false
         }
-        this.scale = 1;
-        this.offset = Vector.two(0, 0);
+        
+        if(data.mindmap.settings.starting_camera != undefined) {
+            this.offset = Vector.two(data.mindmap.settings.starting_camera.x, data.mindmap.settings.starting_camera.y);
+            this.scale = data.mindmap.settings.starting_camera.scale ?? 1;
+        }
+        else {
+            this.offset = Vector.two(0, 0);
+            this.scale = 1;
+        }
     }
     setupHandlers() {
         const canvas = this.ctx.canvas;
@@ -295,7 +303,7 @@ class Mindmap {
             ctx.fill();
 
             ctx.lineWidth = 2;
-            ctx.font = "17px Arial"; // could scale w/ scale but looks better w/o
+            ctx.font = `${30 * this.scale}px Arial`; // could scale w/ scale but looks better w/o
             ctx.fillStyle = "black";
             const textWidth = ctx.measureText(n.name).width;
             ctx.fillText(n.name, nx - textWidth / 2, ny - nr - 8);

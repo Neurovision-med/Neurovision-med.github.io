@@ -1,0 +1,1183 @@
+{
+  "mindmap": {
+    "nodes": {
+      "cognitively_normal_cn": {
+        "x": 200,
+        "y": 730.0,
+        "r": 20,
+        "node_data": {
+          "link": "cognitively_normal_cn",
+          "name": "Cognitively normal (CN)",
+          "connections": null
+        }
+      },
+      "stable_cn": {
+        "x": 460,
+        "y": 100,
+        "r": 20,
+        "node_data": {
+          "link": "stable_cn",
+          "name": "Stable CN",
+          "connections": [
+            {
+              "id": "cognitively_normal_cn"
+            }
+          ]
+        }
+      },
+      "progressive_cn": {
+        "x": 460,
+        "y": 325.0,
+        "r": 20,
+        "node_data": {
+          "link": "progressive_cn",
+          "name": "Progressive CN",
+          "connections": [
+            {
+              "id": "cognitively_normal_cn"
+            }
+          ]
+        }
+      },
+      "cognitive_resilience": {
+        "x": 720,
+        "y": 190,
+        "r": 20,
+        "node_data": {
+          "link": "cognitive_resilience",
+          "name": "Cognitive Resilience",
+          "connections": [
+            {
+              "id": "progressive_cn"
+            }
+          ]
+        }
+      },
+      "neurodegeneration": {
+        "x": 720,
+        "y": 280,
+        "r": 20,
+        "node_data": {
+          "link": "neurodegeneration",
+          "name": "Neurodegeneration",
+          "connections": [
+            {
+              "id": "progressive_cn"
+            }
+          ]
+        }
+      },
+      "mild_cognitive_impairment_mci": {
+        "x": 720,
+        "y": 460.0,
+        "r": 20,
+        "node_data": {
+          "link": "mild_cognitive_impairment_mci",
+          "name": "Mild Cognitive Impairment (MCI)",
+          "connections": [
+            {
+              "id": "progressive_cn"
+            }
+          ]
+        }
+      },
+      "stable_mci": {
+        "x": 980,
+        "y": 370,
+        "r": 20,
+        "node_data": {
+          "link": "stable_mci",
+          "name": "Stable MCI",
+          "connections": [
+            {
+              "id": "mild_cognitive_impairment_mci"
+            }
+          ]
+        }
+      },
+      "progressive_mci": {
+        "x": 980,
+        "y": 460,
+        "r": 20,
+        "node_data": {
+          "link": "progressive_mci",
+          "name": "Progressive MCI",
+          "connections": [
+            {
+              "id": "mild_cognitive_impairment_mci"
+            }
+          ]
+        }
+      },
+      "amnestic_mci": {
+        "x": 980,
+        "y": 550,
+        "r": 20,
+        "node_data": {
+          "link": "amnestic_mci",
+          "name": "Amnestic MCI",
+          "connections": [
+            {
+              "id": "mild_cognitive_impairment_mci"
+            }
+          ]
+        }
+      },
+      "dementia": {
+        "x": 200,
+        "y": 2833.75,
+        "r": 20,
+        "node_data": {
+          "link": "dementia",
+          "name": "Dementia",
+          "connections": null
+        }
+      },
+      "alzheimers_disease_ad": {
+        "x": 460,
+        "y": 2102.5,
+        "r": 20,
+        "node_data": {
+          "link": "alzheimers_disease_ad",
+          "name": "Alzheimer\u2019s Disease (AD)",
+          "connections": [
+            {
+              "id": "dementia"
+            }
+          ]
+        }
+      },
+      "neuritic_plaques": {
+        "x": 720,
+        "y": 1765.0,
+        "r": 20,
+        "node_data": {
+          "link": "neuritic_plaques",
+          "name": "Neuritic plaques",
+          "connections": [
+            {
+              "id": "alzheimers_disease_ad"
+            }
+          ]
+        }
+      },
+      "pet_scan": {
+        "x": 980,
+        "y": 1765.0,
+        "r": 20,
+        "node_data": {
+          "link": "pet_scan",
+          "name": "PET scan",
+          "connections": [
+            {
+              "id": "neuritic_plaques"
+            }
+          ]
+        }
+      },
+      "standardized_uptake_value_ratio_suvr": {
+        "x": 1240,
+        "y": 1720,
+        "r": 20,
+        "node_data": {
+          "link": "standardized_uptake_value_ratio_suvr",
+          "name": "Standardized Uptake Value Ratio (SUVR)",
+          "connections": [
+            {
+              "id": "pet_scan"
+            }
+          ]
+        }
+      },
+      "florbetapir_data": {
+        "x": 1240,
+        "y": 1810,
+        "r": 20,
+        "node_data": {
+          "link": "florbetapir_data",
+          "name": "Florbetapir data",
+          "connections": [
+            {
+              "id": "pet_scan"
+            }
+          ]
+        }
+      },
+      "neurofibrillary_tangles": {
+        "x": 720,
+        "y": 1900,
+        "r": 20,
+        "node_data": {
+          "link": "neurofibrillary_tangles",
+          "name": "Neurofibrillary tangles",
+          "connections": [
+            {
+              "id": "alzheimers_disease_ad"
+            }
+          ]
+        }
+      },
+      "dementia_due_to_ad": {
+        "x": 720,
+        "y": 1990,
+        "r": 20,
+        "node_data": {
+          "link": "dementia_due_to_ad",
+          "name": "Dementia due to AD",
+          "connections": [
+            {
+              "id": "alzheimers_disease_ad"
+            }
+          ]
+        }
+      },
+      "artag": {
+        "x": 720,
+        "y": 2080,
+        "r": 20,
+        "node_data": {
+          "link": "artag",
+          "name": "Artag",
+          "connections": [
+            {
+              "id": "alzheimers_disease_ad"
+            }
+          ]
+        }
+      },
+      "incident_ad_dementia": {
+        "x": 720,
+        "y": 2170,
+        "r": 20,
+        "node_data": {
+          "link": "incident_ad_dementia",
+          "name": "Incident AD dementia",
+          "connections": [
+            {
+              "id": "alzheimers_disease_ad"
+            }
+          ]
+        }
+      },
+      "alzheimers_disease_neuroimaging_initiative_adni": {
+        "x": 720,
+        "y": 2260,
+        "r": 20,
+        "node_data": {
+          "link": "alzheimers_disease_neuroimaging_initiative_adni",
+          "name": "Alzheimer's Disease Neuroimaging Initiative (ADNI)",
+          "connections": [
+            {
+              "id": "alzheimers_disease_ad"
+            }
+          ]
+        }
+      },
+      "chronic_traumatic_encephalopathy": {
+        "x": 720,
+        "y": 2350,
+        "r": 20,
+        "node_data": {
+          "link": "chronic_traumatic_encephalopathy",
+          "name": "Chronic Traumatic Encephalopathy",
+          "connections": [
+            {
+              "id": "alzheimers_disease_ad"
+            }
+          ]
+        }
+      },
+      "elecsys_total_tau_csf": {
+        "x": 720,
+        "y": 2440,
+        "r": 20,
+        "node_data": {
+          "link": "elecsys_total_tau_csf",
+          "name": "Elecsys Total-Tau CSF",
+          "connections": [
+            {
+              "id": "alzheimers_disease_ad"
+            }
+          ]
+        }
+      },
+      "parkinsons_disease_dementia": {
+        "x": 460,
+        "y": 2530.0,
+        "r": 20,
+        "node_data": {
+          "link": "parkinsons_disease_dementia",
+          "name": "Parkinson\u2019s Disease Dementia",
+          "connections": [
+            {
+              "id": "dementia"
+            }
+          ]
+        }
+      },
+      "lewy_bodies": {
+        "x": 720,
+        "y": 2530,
+        "r": 20,
+        "node_data": {
+          "link": "lewy_bodies",
+          "name": "Lewy bodies",
+          "connections": [
+            {
+              "id": "parkinsons_disease_dementia"
+            }
+          ]
+        }
+      },
+      "dementia_with_lewy_bodies": {
+        "x": 460,
+        "y": 2620,
+        "r": 20,
+        "node_data": {
+          "link": "dementia_with_lewy_bodies",
+          "name": "Dementia with Lewy bodies",
+          "connections": [
+            {
+              "id": "dementia"
+            }
+          ]
+        }
+      },
+      "vascular_dementia": {
+        "x": 460,
+        "y": 2800.0,
+        "r": 20,
+        "node_data": {
+          "link": "vascular_dementia",
+          "name": "Vascular Dementia",
+          "connections": [
+            {
+              "id": "dementia"
+            }
+          ]
+        }
+      },
+      "small_vessel_disease": {
+        "x": 720,
+        "y": 2710,
+        "r": 20,
+        "node_data": {
+          "link": "small_vessel_disease",
+          "name": "Small Vessel Disease",
+          "connections": [
+            {
+              "id": "vascular_dementia"
+            }
+          ]
+        }
+      },
+      "arteriosclerosis": {
+        "x": 720,
+        "y": 2800.0,
+        "r": 20,
+        "node_data": {
+          "link": "arteriosclerosis",
+          "name": "Arteriosclerosis",
+          "connections": [
+            {
+              "id": "vascular_dementia"
+            }
+          ]
+        }
+      },
+      "arterioles": {
+        "x": 980,
+        "y": 2800,
+        "r": 20,
+        "node_data": {
+          "link": "arterioles",
+          "name": "Arterioles",
+          "connections": [
+            {
+              "id": "arteriosclerosis"
+            }
+          ]
+        }
+      },
+      "cerebral_amyloid_angiopathy": {
+        "x": 720,
+        "y": 2890,
+        "r": 20,
+        "node_data": {
+          "link": "cerebral_amyloid_angiopathy",
+          "name": "Cerebral Amyloid Angiopathy",
+          "connections": [
+            {
+              "id": "vascular_dementia"
+            }
+          ]
+        }
+      },
+      "frontotemporal_dementia": {
+        "x": 460,
+        "y": 2980.0,
+        "r": 20,
+        "node_data": {
+          "link": "frontotemporal_dementia",
+          "name": "Frontotemporal Dementia",
+          "connections": [
+            {
+              "id": "dementia"
+            }
+          ]
+        }
+      },
+      "frontotemporal_lobar_degeneration": {
+        "x": 720,
+        "y": 2980,
+        "r": 20,
+        "node_data": {
+          "link": "frontotemporal_lobar_degeneration",
+          "name": "Frontotemporal Lobar Degeneration",
+          "connections": [
+            {
+              "id": "frontotemporal_dementia"
+            }
+          ]
+        }
+      },
+      "creutzfeldt_jakob_disease": {
+        "x": 460,
+        "y": 3070,
+        "r": 20,
+        "node_data": {
+          "link": "creutzfeldt_jakob_disease",
+          "name": "Creutzfeldt Jakob Disease",
+          "connections": [
+            {
+              "id": "dementia"
+            }
+          ]
+        }
+      },
+      "wernicke_korsakoff": {
+        "x": 460,
+        "y": 3160,
+        "r": 20,
+        "node_data": {
+          "link": "wernicke_korsakoff",
+          "name": "Wernicke-Korsakoff",
+          "connections": [
+            {
+              "id": "dementia"
+            }
+          ]
+        }
+      },
+      "biomarkers": {
+        "x": 460,
+        "y": 3565.0,
+        "r": 20,
+        "node_data": {
+          "link": "biomarkers",
+          "name": "Biomarkers",
+          "connections": [
+            {
+              "id": "dementia"
+            }
+          ]
+        }
+      },
+      "amyloid_beta_protein_abeta": {
+        "x": 720,
+        "y": 3250.0,
+        "r": 20,
+        "node_data": {
+          "link": "amyloid_beta_protein_abeta",
+          "name": "Amyloid-\u03b2 protein (A\u03b2)",
+          "connections": [
+            {
+              "id": "biomarkers"
+            }
+          ]
+        }
+      },
+      "roche_elecsys_amyloid_beta_csf": {
+        "x": 980,
+        "y": 3250,
+        "r": 20,
+        "node_data": {
+          "link": "roche_elecsys_amyloid_beta_csf",
+          "name": "Roche Elecsys amyloid-\u03b2 CSF",
+          "connections": [
+            {
+              "id": "amyloid_beta_protein_abeta"
+            }
+          ]
+        }
+      },
+      "hyperphosphorylated_tau_p_tau": {
+        "x": 720,
+        "y": 3340,
+        "r": 20,
+        "node_data": {
+          "link": "hyperphosphorylated_tau_p_tau",
+          "name": "Hyperphosphorylated tau (p-tau)",
+          "connections": [
+            {
+              "id": "biomarkers"
+            }
+          ]
+        }
+      },
+      "plasma_biomarkers": {
+        "x": 720,
+        "y": 3430,
+        "r": 20,
+        "node_data": {
+          "link": "plasma_biomarkers",
+          "name": "Plasma biomarkers",
+          "connections": [
+            {
+              "id": "biomarkers"
+            }
+          ]
+        }
+      },
+      "cerebrospinal_fluid_csf": {
+        "x": 720,
+        "y": 3520,
+        "r": 20,
+        "node_data": {
+          "link": "cerebrospinal_fluid_csf",
+          "name": "Cerebrospinal fluid (CSF)",
+          "connections": [
+            {
+              "id": "biomarkers"
+            }
+          ]
+        }
+      },
+      "neurofilament_light_chain_nfl": {
+        "x": 720,
+        "y": 3610,
+        "r": 20,
+        "node_data": {
+          "link": "neurofilament_light_chain_nfl",
+          "name": "Neurofilament light chain (NfL)",
+          "connections": [
+            {
+              "id": "biomarkers"
+            }
+          ]
+        }
+      },
+      "axonal_protein_nfl": {
+        "x": 720,
+        "y": 3700,
+        "r": 20,
+        "node_data": {
+          "link": "axonal_protein_nfl",
+          "name": "Axonal protein NfL",
+          "connections": [
+            {
+              "id": "biomarkers"
+            }
+          ]
+        }
+      },
+      "single_molecule_array": {
+        "x": 720,
+        "y": 3790,
+        "r": 20,
+        "node_data": {
+          "link": "single_molecule_array",
+          "name": "Single Molecule array",
+          "connections": [
+            {
+              "id": "biomarkers"
+            }
+          ]
+        }
+      },
+      "tdp": {
+        "x": 720,
+        "y": 3880.0,
+        "r": 20,
+        "node_data": {
+          "link": "tdp",
+          "name": "TDP",
+          "connections": [
+            {
+              "id": "biomarkers"
+            }
+          ]
+        }
+      },
+      "late": {
+        "x": 980,
+        "y": 3880,
+        "r": 20,
+        "node_data": {
+          "link": "late",
+          "name": "LATE",
+          "connections": [
+            {
+              "id": "tdp"
+            }
+          ]
+        }
+      },
+      "neuropsychological_assessments": {
+        "x": 460,
+        "y": 820.0,
+        "r": 20,
+        "node_data": {
+          "link": "neuropsychological_assessments",
+          "name": "Neuropsychological assessments",
+          "connections": [
+            {
+              "id": "cognitively_normal_cn"
+            }
+          ]
+        }
+      },
+      "mini_mental_state_examination": {
+        "x": 720,
+        "y": 640,
+        "r": 20,
+        "node_data": {
+          "link": "mini_mental_state_examination",
+          "name": "Mini-Mental State Examination",
+          "connections": [
+            {
+              "id": "neuropsychological_assessments"
+            }
+          ]
+        }
+      },
+      "clinical_dementia_rating": {
+        "x": 720,
+        "y": 730,
+        "r": 20,
+        "node_data": {
+          "link": "clinical_dementia_rating",
+          "name": "Clinical Dementia Rating",
+          "connections": [
+            {
+              "id": "neuropsychological_assessments"
+            }
+          ]
+        }
+      },
+      "the_wechsler_memory_scale_logical_memory_ii": {
+        "x": 720,
+        "y": 820,
+        "r": 20,
+        "node_data": {
+          "link": "the_wechsler_memory_scale_logical_memory_ii",
+          "name": "The Wechsler Memory Scale Logical Memory II",
+          "connections": [
+            {
+              "id": "neuropsychological_assessments"
+            }
+          ]
+        }
+      },
+      "reys_auditory_verbal_learning_test": {
+        "x": 720,
+        "y": 910,
+        "r": 20,
+        "node_data": {
+          "link": "reys_auditory_verbal_learning_test",
+          "name": "Rey\u2019s Auditory Verbal Learning Test",
+          "connections": [
+            {
+              "id": "neuropsychological_assessments"
+            }
+          ]
+        }
+      },
+      "roche_study_protocol": {
+        "x": 720,
+        "y": 1000,
+        "r": 20,
+        "node_data": {
+          "link": "roche_study_protocol",
+          "name": "Roche Study Protocol",
+          "connections": [
+            {
+              "id": "neuropsychological_assessments"
+            }
+          ]
+        }
+      },
+      "total_intracranial_volume_ticv": {
+        "x": 460,
+        "y": 1360.0,
+        "r": 20,
+        "node_data": {
+          "link": "total_intracranial_volume_ticv",
+          "name": "Total intracranial volume (TICV)",
+          "connections": [
+            {
+              "id": "cognitively_normal_cn"
+            }
+          ]
+        }
+      },
+      "volumetric_mri": {
+        "x": 720,
+        "y": 1090.0,
+        "r": 20,
+        "node_data": {
+          "link": "volumetric_mri",
+          "name": "Volumetric MRI",
+          "connections": [
+            {
+              "id": "total_intracranial_volume_ticv"
+            }
+          ]
+        }
+      },
+      "magnetic_resonance_imaging_mri": {
+        "x": 980,
+        "y": 1090,
+        "r": 20,
+        "node_data": {
+          "link": "magnetic_resonance_imaging_mri",
+          "name": "Magnetic Resonance Imaging (MRI)",
+          "connections": [
+            {
+              "id": "volumetric_mri"
+            }
+          ]
+        }
+      },
+      "blood_brain_barrier": {
+        "x": 720,
+        "y": 1180,
+        "r": 20,
+        "node_data": {
+          "link": "blood_brain_barrier",
+          "name": "Blood Brain Barrier",
+          "connections": [
+            {
+              "id": "total_intracranial_volume_ticv"
+            }
+          ]
+        }
+      },
+      "neocortex": {
+        "x": 720,
+        "y": 1270,
+        "r": 20,
+        "node_data": {
+          "link": "neocortex",
+          "name": "Neocortex",
+          "connections": [
+            {
+              "id": "total_intracranial_volume_ticv"
+            }
+          ]
+        }
+      },
+      "hippocampus": {
+        "x": 720,
+        "y": 1360.0,
+        "r": 20,
+        "node_data": {
+          "link": "hippocampus",
+          "name": "Hippocampus",
+          "connections": [
+            {
+              "id": "total_intracranial_volume_ticv"
+            }
+          ]
+        }
+      },
+      "hippocampal_sclerosis": {
+        "x": 980,
+        "y": 1360,
+        "r": 20,
+        "node_data": {
+          "link": "hippocampal_sclerosis",
+          "name": "Hippocampal Sclerosis",
+          "connections": [
+            {
+              "id": "hippocampus"
+            }
+          ]
+        }
+      },
+      "basal_ganglia": {
+        "x": 720,
+        "y": 1450,
+        "r": 20,
+        "node_data": {
+          "link": "basal_ganglia",
+          "name": "Basal ganglia",
+          "connections": [
+            {
+              "id": "total_intracranial_volume_ticv"
+            }
+          ]
+        }
+      },
+      "midbrain": {
+        "x": 720,
+        "y": 1540,
+        "r": 20,
+        "node_data": {
+          "link": "midbrain",
+          "name": "Midbrain",
+          "connections": [
+            {
+              "id": "total_intracranial_volume_ticv"
+            }
+          ]
+        }
+      },
+      "cerebellum": {
+        "x": 720,
+        "y": 1630,
+        "r": 20,
+        "node_data": {
+          "link": "cerebellum",
+          "name": "Cerebellum",
+          "connections": [
+            {
+              "id": "total_intracranial_volume_ticv"
+            }
+          ]
+        }
+      }
+    },
+    "settings": {
+      "spring_resting_length": 370,
+      "spring_stiffness": 0.03,
+      "repulsion_strength": 4000,
+      "grabbed_node_immune_to_simulation": true,
+      "debug_keybind": "=",
+      "canvas_size": {
+        "w": 512,
+        "h": 512
+      },
+      "starting_camera": {
+        "x": 100,
+        "y": 0,
+        "scale": 0.15
+      },
+      "background": {
+        "enabled": false,
+        "color": "#D9E6EC"
+      },
+      "outline": true,
+      "connection_size_factor": 5
+    }
+  },
+  "glossary": {
+    "cards": [
+      {
+        "id": "cognitively_normal_cn",
+        "header": "Cognitively normal (CN)",
+        "description": "people who are the \"healthy control group,\u201d meaning they have normal memory, normal thinking, and no signs of dementia."
+      },
+      {
+        "id": "stable_cn",
+        "header": "Stable CN",
+        "description": "A person whose memory and thinking skills stay normal over time and don\u2019t show signs of cognitive decline."
+      },
+      {
+        "id": "progressive_cn",
+        "header": "Progressive CN",
+        "description": "A person who starts with normal memory and thinking skills but later begins to experience cognitive decline and may develop dementia."
+      },
+      {
+        "id": "cognitive_resilience",
+        "header": "Cognitive Resilience",
+        "description": "The brain's ability to function despite underlying pathology. Resilience decreases as pathologies accumulate."
+      },
+      {
+        "id": "neurodegeneration",
+        "header": "Neurodegeneration",
+        "description": "The loss of structure and function of a neuron where they eventually die."
+      },
+      {
+        "id": "mild_cognitive_impairment_mci",
+        "header": "Mild Cognitive Impairment (MCI)",
+        "description": "A state that\u2019s characterized by a decline in cognitive abilities (memory/thinking) that interferes with daily function. It increases the risk of an individual developing dementia, however there is also the chance that the individual remains cognitively stable."
+      },
+      {
+        "id": "stable_mci",
+        "header": "Stable MCI",
+        "description": "A person who starts with mild problems in memory or thinking skills but remains at a similar level of cognitive impairment over time without progressing to dementia."
+      },
+      {
+        "id": "progressive_mci",
+        "header": "Progressive MCI",
+        "description": "A person who starts with mild problems in memory or thinking skills and gradually experiences worsening cognitive decline, increasing their likelihood of progressing to Alzheimer\u2019s disease dementia."
+      },
+      {
+        "id": "amnestic_mci",
+        "header": "Amnestic MCI",
+        "description": "A person with mild cognitive impairment that primarily affects their memory."
+      },
+      {
+        "id": "dementia",
+        "header": "Dementia",
+        "description": "A broad clinical term for a decline in mental ability that interferes with daily life."
+      },
+      {
+        "id": "alzheimers_disease_ad",
+        "header": "Alzheimer\u2019s Disease (AD)",
+        "description": "A progressive neurodegenerative disease/disorder characterized by brain changes and cognitive decline that affects memory, thinking and behavior. The most common form of dementia."
+      },
+      {
+        "id": "neuritic_plaques",
+        "header": "Neuritic plaques",
+        "description": "Abnormal sticky clumps of protein fragments and damaged nerve parts that build up outside of the brain cells. A sign of Alzheimer\u2019s."
+      },
+      {
+        "id": "pet_scan",
+        "header": "PET scan",
+        "description": "An imaging scan  that shows what is happening inside the brain."
+      },
+      {
+        "id": "standardized_uptake_value_ratio_suvr",
+        "header": "Standardized Uptake Value Ratio (SUVR)",
+        "description": "A number that tells how much amyloid the PET scan detected."
+      },
+      {
+        "id": "florbetapir_data",
+        "header": "Florbetapir data",
+        "description": "A diagnostic where a PET scan estimates the density of beta-amyloid neuritic plaque in patients being evaluated for Alzheimer\u2019s and cognitive decline."
+      },
+      {
+        "id": "neurofibrillary_tangles",
+        "header": "Neurofibrillary tangles",
+        "description": "Abnormal intracellular clumps of hyperphosphorylated tau protein that damage neurons in the brain. A sign of Alzheimer\u2019s."
+      },
+      {
+        "id": "dementia_due_to_ad",
+        "header": "Dementia due to AD",
+        "description": "A person who experiences significant and progressive decline in memory, thinking, and daily functioning due to Alzheimer\u2019s disease, reaching the stage where cognitive impairment interferes with independent living."
+      },
+      {
+        "id": "artag",
+        "header": "Artag",
+        "description": "When tau accumulates in astrocytes rather than the neurons. It is common in the elderly and people with Alzheimer\u2019s disease."
+      },
+      {
+        "id": "incident_ad_dementia",
+        "header": "Incident AD dementia",
+        "description": "Cases of Alzheimer's that develop in people who didn\u2019t have it at the start of a study. It is very useful for seeing how Alzheimer\u2019s develops over time."
+      },
+      {
+        "id": "alzheimers_disease_neuroimaging_initiative_adni",
+        "header": "Alzheimer's Disease Neuroimaging Initiative (ADNI)",
+        "description": "Which is a large multicenter research database."
+      },
+      {
+        "id": "chronic_traumatic_encephalopathy",
+        "header": "Chronic Traumatic Encephalopathy",
+        "description": "A brain condition associated with repeated head injuries. It is a risk factor for Alzheimer's disease and other neurodegenerative diseases."
+      },
+      {
+        "id": "elecsys_total_tau_csf",
+        "header": "Elecsys Total-Tau CSF",
+        "description": "A diagnostic test for CSF to help test for Alzheimer's."
+      },
+      {
+        "id": "parkinsons_disease_dementia",
+        "header": "Parkinson\u2019s Disease Dementia",
+        "description": "Individuals experience motor impairment before experiencing cognitive impairment. Characterized by Lewy bodies."
+      },
+      {
+        "id": "lewy_bodies",
+        "header": "Lewy bodies",
+        "description": "Neuronal inclusions found in the cytoplasm that are strongly related to cognitive impairment and dementia."
+      },
+      {
+        "id": "dementia_with_lewy_bodies",
+        "header": "Dementia with Lewy bodies",
+        "description": "Lewy body build up causes individuals to experience cognitive impairment prior to motor impairment."
+      },
+      {
+        "id": "vascular_dementia",
+        "header": "Vascular Dementia",
+        "description": "A decline in thinking, specifically planning, confusion, and trouble speaking, due to conditions that block or reduce blood flow to the brain. Second most common form of dementia."
+      },
+      {
+        "id": "small_vessel_disease",
+        "header": "Small Vessel Disease",
+        "description": "A combination of arteriolosclerosis or cerebral amyloid angiopathy and it is the most common underlying pathologic substrate for vascular dementia."
+      },
+      {
+        "id": "arteriosclerosis",
+        "header": "Arteriosclerosis",
+        "description": "The concentrated hyalinized thickening of small arterioles."
+      },
+      {
+        "id": "arterioles",
+        "header": "Arterioles",
+        "description": "Tiny blood vessels that branch off of larger arteries and connect to capillaries. They are the main resistance vessels in the circulatory system."
+      },
+      {
+        "id": "cerebral_amyloid_angiopathy",
+        "header": "Cerebral Amyloid Angiopathy",
+        "description": "When there is an accumulation of the amyloid-beta protein in the blood vessels, which increases the risk of bleeding and cognitive decline."
+      },
+      {
+        "id": "frontotemporal_dementia",
+        "header": "Frontotemporal Dementia",
+        "description": "Typically causes early behavioral and language changes, with memory often preserved early because the hippocampus is usually spared."
+      },
+      {
+        "id": "frontotemporal_lobar_degeneration",
+        "header": "Frontotemporal Lobar Degeneration",
+        "description": "Primarily affects the frontal and temporal lobes, causing severe atrophy known as \"knife-edge atrophy.\" It is also the brain pathology most commonly associated with Frontotemporal Dementia."
+      },
+      {
+        "id": "creutzfeldt_jakob_disease",
+        "header": "Creutzfeldt Jakob Disease",
+        "description": "A rare rapidly progressive dementia caused by prion proteins which causes widespread neuronal loss, gliosis, and spongiform."
+      },
+      {
+        "id": "wernicke_korsakoff",
+        "header": "Wernicke-Korsakoff",
+        "description": "Caused by thiamine deficiency which is commonly associated with alcoholism and or malnutrition. Wernicke causes confusion, eye abnormalities and ataxia. Korsakoff causes memory loss and dementia. It is commonly referred to as alcohol related dementia."
+      },
+      {
+        "id": "biomarkers",
+        "header": "Biomarkers",
+        "description": "Biological indicators found in blood, fluid or tissues that can be used to indicate biological processes or diseases."
+      },
+      {
+        "id": "amyloid_beta_protein_abeta",
+        "header": "Amyloid-\u03b2 protein (A\u03b2)",
+        "description": "A protein naturally produced in the brain. Normally your brain clears it away. In Alzheimer's disease this protein begins to stick together, forming amyloid plaques between neurons. These plaques interfere with communication between neurons and are one of the classic signs of Alzheimer's disease."
+      },
+      {
+        "id": "roche_elecsys_amyloid_beta_csf",
+        "header": "Roche Elecsys amyloid-\u03b2 CSF",
+        "description": "A completely automated diagnostic test done in vitro that measures the amount of beta amyloid 1-42 proteins in the cerebrospinal fluid."
+      },
+      {
+        "id": "hyperphosphorylated_tau_p_tau",
+        "header": "Hyperphosphorylated tau (p-tau)",
+        "description": "A protein that helps to stabilize the internal structure of neurons."
+      },
+      {
+        "id": "plasma_biomarkers",
+        "header": "Plasma biomarkers",
+        "description": "Measurable substances found within the blood that indicate normal body processes or disease."
+      },
+      {
+        "id": "cerebrospinal_fluid_csf",
+        "header": "Cerebrospinal fluid (CSF)",
+        "description": "Clear fluid surrounding the brain and spinal cord."
+      },
+      {
+        "id": "neurofilament_light_chain_nfl",
+        "header": "Neurofilament light chain (NfL)",
+        "description": "Structural protein found inside the axons of neurons. When neurons are damaged or die, NfL leaks out into the cerebrospinal fluid and blood."
+      },
+      {
+        "id": "axonal_protein_nfl",
+        "header": "Axonal protein NfL",
+        "description": "Scaffolding protein located in neurons (myelinated axons) that increase in level when axons are damaged."
+      },
+      {
+        "id": "single_molecule_array",
+        "header": "Single Molecule array",
+        "description": "A testing method for biomarkers in a sample that is very precise, used for detecting very low levels of biomarkers."
+      },
+      {
+        "id": "tdp",
+        "header": "TDP",
+        "description": "A vital RNA and DNA binding protein that is found in the nucleus of the cell. It regulates RNA processing, splicing and stability. Abnormalities of TDP in aging is associated with an amnestic disorder that can be confused for Alzheimer's."
+      },
+      {
+        "id": "late",
+        "header": "LATE",
+        "description": "Introduced as an acronym to spread awareness of the role that TDP-43 has in amnestic disorders of aging. Stands for Limbic-predominant Age-related TDP-43 Encephalopathy."
+      },
+      {
+        "id": "neuropsychological_assessments",
+        "header": "Neuropsychological assessments",
+        "description": "Standardized, clinical pen and paper or computerized tests used to evaluate a patient's memory, function, and overall cognitive symptoms."
+      },
+      {
+        "id": "mini_mental_state_examination",
+        "header": "Mini-Mental State Examination",
+        "description": "A questionnaire to screen for cognitive impairment."
+      },
+      {
+        "id": "clinical_dementia_rating",
+        "header": "Clinical Dementia Rating",
+        "description": "A numerical scale used to measure the severity of the symptoms of the dementia of a patient."
+      },
+      {
+        "id": "the_wechsler_memory_scale_logical_memory_ii",
+        "header": "The Wechsler Memory Scale Logical Memory II",
+        "description": "A test designed to measure an individual's ability to retain story details half an hour after hearing said stories."
+      },
+      {
+        "id": "reys_auditory_verbal_learning_test",
+        "header": "Rey\u2019s Auditory Verbal Learning Test",
+        "description": "A test that measures memory by presenting individuals with two lists of fifteen words they have to recall later."
+      },
+      {
+        "id": "roche_study_protocol",
+        "header": "Roche Study Protocol",
+        "description": "A detailed plan with patient rules, drug doses, safety steps and tests scheduled to guide a clinical trial."
+      },
+      {
+        "id": "total_intracranial_volume_ticv",
+        "header": "Total intracranial volume (TICV)",
+        "description": "Total space inside the skull."
+      },
+      {
+        "id": "volumetric_mri",
+        "header": "Volumetric MRI",
+        "description": "Measuring the size (volume) of different parts of the brain. For Alzheimer's, doctors often measure the hippocampus, because it shrinks as the disease progresses."
+      },
+      {
+        "id": "magnetic_resonance_imaging_mri",
+        "header": "Magnetic Resonance Imaging (MRI)",
+        "description": "Medical test using magnets and radio waves to take pictures of organs, soft tissues and bones"
+      },
+      {
+        "id": "blood_brain_barrier",
+        "header": "Blood Brain Barrier",
+        "description": "A semipermeable filter that protects the brain by regulating nutrient entry and restricting the movement of harmful substances."
+      },
+      {
+        "id": "neocortex",
+        "header": "Neocortex",
+        "description": "The most complex and largest outer layer of the brain responsible for sensory perception, conscious thought, language, and spatial reasoning."
+      },
+      {
+        "id": "hippocampus",
+        "header": "Hippocampus",
+        "description": "Part of the brain responsible for memory, spatial navigation, and regulation of emotions."
+      },
+      {
+        "id": "hippocampal_sclerosis",
+        "header": "Hippocampal Sclerosis",
+        "description": "A nonspecific pathogen term used for severe neuronal loss and gliosis in the hippocampus."
+      },
+      {
+        "id": "basal_ganglia",
+        "header": "Basal ganglia",
+        "description": "A group of structures within the brain that are responsible for voluntary movement, coordinate posture, and managing habits."
+      },
+      {
+        "id": "midbrain",
+        "header": "Midbrain",
+        "description": "The top part of the brainstem that is responsible for connecting the forebrain to the hindbrain."
+      },
+      {
+        "id": "cerebellum",
+        "header": "Cerebellum",
+        "description": "Structure of brain responsible for motor coordination, balance and language processing/attention."
+      }
+    ]
+  }
+}
