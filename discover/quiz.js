@@ -14,37 +14,48 @@ const COLORS = {
 const data = {
     "questions": [
         {
-            "information": "information written here #1",
+            "information": "A 73-year-old has experienced a gradual decline in memory over the past three years. They frequently repeat questions, forget recent conversations, and have increasing difficulty remembering names, but their personality and movement have remained largely unchanged.",
             "answer": 0,
             "wrong_expl": {
-                "opt1": "another piece of info 1",
-                "opt2": "another piece of info 2",
-                "opt3": "another piece of info 3",
-                "opt4": "another piece of info 4",
+                "opt1": "Brain imaging shows no evidence of strokes or reduced blood flow.",
+                "opt2": "The patient has never experienced visual hallucinations or Parkinson-like movement symptoms.",
+                "opt3": "Behavioral and personality changes did not appear early in the disease.",
+                "opt4": "Memory loss was the earliest and most prominent symptom."
             },
-            "correct_expl": "you were right because dementia"
+            "correct_expl": "Correct! Alzheimer's disease usually begins with a slow, progressive decline in memory before affecting other thinking abilities."
         },
         {
-            "information": "information written here #2",
+            "information": "A 77-year-old developed noticeable cognitive problems after suffering multiple strokes. Their thinking abilities worsened suddenly after each stroke instead of declining steadily over time.",
             "answer": 1,
             "wrong_expl": {
-                "opt1": "second piece of info 1",
-                "opt2": "second piece of info 2",
-                "opt3": "second piece of info 3",
-                "opt4": "second piece of info 4",
+                "opt1": "The patient has a long history of high blood pressure and diabetes, both major stroke risk factors.",
+                "opt2": "Their symptoms remain stable for months before suddenly worsening again.",
+                "opt3": "Brain scans reveal multiple areas of damage caused by interrupted blood flow.",
+                "opt4": "The pattern of decline closely follows cerebrovascular events."
             },
-            "correct_expl": "you were right also because of dementia"
+            "correct_expl": "Correct! Vascular dementia is commonly caused by reduced blood flow to the brain and often progresses in a stepwise pattern after strokes."
         },
         {
-            "information": "information written here #3",
+            "information": "A 75-year-old frequently sees people in the house who are not actually there. Some days they are alert and engaged, while on other days they are extremely confused. They also have a shuffling walk and muscle stiffness.",
             "answer": 2,
             "wrong_expl": {
-                "opt1": "third piece of info 1",
-                "opt2": "third piece of info 2",
-                "opt3": "third piece of info 3",
-                "opt4": "third piece of info 4",
+                "opt1": "Memory loss is present but was not the earliest or most noticeable symptom.",
+                "opt2": "The patient has no history of strokes or vascular disease.",
+                "opt3": "The personality changes are mild compared with the hallucinations and movement problems.",
+                "opt4": "The combination of visual hallucinations, fluctuating attention, and Parkinson-like symptoms is highly characteristic."
             },
-            "correct_expl": "you were right amazingly because of dementia"
+            "correct_expl": "Correct! Lewy body dementia is characterized by visual hallucinations, fluctuating cognition, and Parkinson-like movement symptoms."
+        },
+        {
+            "information": "A 61-year-old has begun acting impulsively, making inappropriate jokes, and showing little empathy toward family members. Despite these personality changes, their memory remains relatively intact.",
+            "answer": 3,
+            "wrong_expl": {
+                "opt1": "Memory problems developed much later than the behavioral changes.",
+                "opt2": "Brain scans show no evidence of strokes or vascular injury.",
+                "opt3": "The patient has never experienced visual hallucinations or Parkinson-like symptoms.",
+                "opt4": "The earliest symptoms involve behavior, judgment, and personality rather than memory."
+            },
+            "correct_expl": "Correct! Frontotemporal dementia typically affects the frontal and temporal lobes first, causing early changes in behavior, personality, and decision-making."
         },
     ]
 }
