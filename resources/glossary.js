@@ -16,8 +16,8 @@
 import { Circle2D, Rect2D, Vector } from "./maths.js"; // copied my maths library from my other projects (i should add springs to it)
 
 // when running this locally you have to swap out these to get data working right, just goofy ahh w/ the pages build
-//import data from "./alzheimers_mindmap_clean.json" with { type: "json" }
-///*
+import data from "./alzheimers_mindmap_clean.json" with { type: "json" }
+/*
 let data = null; try {
     const baseUrl = window.location.origin + window.location.pathname;
     const cleanUrl = new URL('alzheimers_mindmap_clean.json', baseUrl).href;
@@ -25,7 +25,9 @@ let data = null; try {
     if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
     data = await response.json();
 } catch (error) { console.error("Could not load glossary data:", error); }
-//*/
+*/
+
+const range = (start, end) => Array.from({ length: end - start + 1 }, (_, i) => start + i);
 
 const CANVAS_SIZE = Vector.two(data.mindmap.settings.canvas_size.w, data.mindmap.settings.canvas_size.h);
 
@@ -54,14 +56,18 @@ class Node {
 }
 
 // preprocessing
+const categories = data.categories;
+let active_categories = range(0, categories.length);
+
 const node_data = data.mindmap.nodes;
-let NODES = {}
+let NODES = []
 for (const [key, value] of Object.entries(node_data)) {
     let references = 0; for (const [key2, value2] of Object.entries(node_data)) {
         if(value.node_data.connections != undefined && value.node_data.connections.map(n1 => n1.id).includes(key2)) references += 1;
         if(value2.node_data.connections != undefined && value2.node_data.connections.map(n1 => n1.id).includes(key)) references += 1;
     }
-    NODES[key] = new Node(new Circle2D(Vector.two(value.x, value.y), value.r+(data.mindmap.settings.connection_size_factor * references)), value.node_data)
+    if(NODES[value.node_data.category] == undefined) NODES[value.node_data.category] = {}
+    NODES[value.node_data.category][key] = new Node(new Circle2D(Vector.two(value.x, value.y), value.r+(data.mindmap.settings.connection_size_factor * references)), {...value.node_data, "color": categories[value.node_data.category].color})
 }
 const glossary_cards = data.glossary.cards
 let glossary_card_map = {};
@@ -79,7 +85,9 @@ class Mindmap {
                 "grabbedNodeStartPos": null,
                 "hasDragged": false
             },
-            "debug": false
+            "debug": false,
+            "tutorial_lifespan": 3000,
+            "tutorial_spent_lifespan": 0
         }
         
         if(data.mindmap.settings.starting_camera != undefined) {
@@ -145,7 +153,12 @@ class Mindmap {
     }
 
     onClick() {
-        Object.values(NODES).forEach(n => {
+        if(this.data.tutorial_spent_lifespan < this.data.tutorial_lifespan*0.8) this.data.tutorial_spent_lifespan = (this.data.tutorial_lifespan*0.8)
+        const active_node_list = NODES.filter((k, index) => active_categories.includes(index));
+        const active_nodes = active_node_list.reduce((acc, current) => ({ ...acc, ...current }), {}) ?? {};
+        const nodes = Object.values(active_nodes)
+        
+        nodes.forEach(n => {
             const screenPosCircle = new Circle2D(Vector.two(n.obj.pos.x * this.scale + this.offset.x,
                 n.obj.pos.y * this.scale + this.offset.y), n.obj.r * this.scale);
             if(screenPosCircle.collides(this.data.cursor.obj)) {
@@ -215,7 +228,9 @@ class Mindmap {
             }
         }
 
-        const nodes = Object.values(NODES);
+        const active_node_list = NODES.filter((k, index) => active_categories.includes(index));
+        const active_nodes = active_node_list.reduce((acc, current) => ({ ...acc, ...current }), {}) ?? {};
+        const nodes = Object.values(active_nodes)
 
         for (let i = 0; i < nodes.length; i++) {
             for (let j = i + 1; j < nodes.length; j++) {
@@ -235,7 +250,8 @@ class Mindmap {
         document.body.style.cursor = ""
         nodes.forEach(n => {
             n.connections.forEach(conn => {
-                const connNode = NODES[conn.id];
+                const connNode = active_nodes[conn.id];
+                if(!connNode) return;
                 const pos1 = connNode.obj.pos;
                 const pos2 = n.obj.pos;
 
@@ -264,6 +280,12 @@ class Mindmap {
             else if(this.data.cursor.grabbedNode != null) document.body.style.cursor = "alias" // technically doesn't do anything but if i wanna chane it later its good it's here
             else document.body.style.cursor = "grabbing"
         }
+
+        if(!delta) return;
+        if(this.data.tutorial_spent_lifespan < this.data.tutorial_lifespan) {
+            this.data.tutorial_spent_lifespan += (delta*1000);
+        }
+
     }
     render() {
         const ctx = this.ctx;
@@ -278,10 +300,14 @@ class Mindmap {
             ctx.strokeRect(0, 0, ctx.canvas.width, ctx.canvas.height)
         }
 
-        Object.values(NODES).forEach(n => {
+        const active_node_list = NODES.filter((k, index) => active_categories.includes(index));
+        const active_nodes = active_node_list.reduce((acc, current) => ({ ...acc, ...current }), {});
+        const nodes = Object.values(active_nodes)
+        
+        nodes.forEach(n => {
             if(n.connections != undefined) {
                 n.connections.forEach(c => {
-                    const connNode = NODES[c.id];
+                    const connNode = active_nodes[c.id];
                     if(!connNode) return;
                     ctx.lineWidth = 1;
                     ctx.strokeStyle = "rgba(0, 0, 0, 0.3)"
@@ -293,7 +319,7 @@ class Mindmap {
             }
         })
 
-        Object.values(NODES).forEach(n => {
+        nodes.forEach(n => {
             const nx = n.obj.pos.x * this.scale + this.offset.x;
             const ny = n.obj.pos.y * this.scale + this.offset.y
             const nr = n.obj.r*this.scale;
@@ -303,11 +329,37 @@ class Mindmap {
             ctx.fill();
 
             ctx.lineWidth = 2;
-            ctx.font = `${30 * this.scale}px Arial`; // could scale w/ scale but looks better w/o
+            ctx.font = `${20 * this.scale}px Arial`;
             ctx.fillStyle = "black";
             const textWidth = ctx.measureText(n.name).width;
             ctx.fillText(n.name, nx - textWidth / 2, ny - nr - 8);
         })
+
+        if (this.data.tutorial_spent_lifespan < this.data.tutorial_lifespan) {
+            ctx.save();
+        
+            const t = Math.min(this.data.tutorial_spent_lifespan / this.data.tutorial_lifespan, 1);
+            let alpha = 1;
+            if (t > 0.8) {
+                const u = (t - 0.8) / 0.2;
+                alpha = Math.pow(1 - u, 3);
+            }
+
+            ctx.globalAlpha = alpha;
+        
+            ctx.fillStyle = "rgba(0, 0, 0, 0.7)";
+            ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+        
+            ctx.fillStyle = "white";
+            ctx.font = "30px Arial";
+            ctx.fillText("drag around the map to move", 50, 100);
+            ctx.fillText("zoom in and out using scroll wheel", 30, 200);
+            ctx.fillText("drag terms around using your mouse", 10, 300);
+            ctx.fillText("click on terms to see the definition", 30, 400);
+        
+            ctx.restore();
+        }
+
         
         if(this.data.debug) {
             let avg = 0;
@@ -377,3 +429,50 @@ container.addEventListener("scroll", e => { updateCards() });
 window.addEventListener("resize", () => { updateCards() });
 propogateCards();
 updateCards();
+
+const category_container_main = document.getElementById("categories")
+/*
+<div class="category-container">
+    <h3>B</h3>
+    <div class="description-container">
+        <p>Types of Dementia</p>
+    </div>
+</div>
+*/
+const spawnCategoryButton = (data) => {
+    const ele = document.createElement("div");
+    ele.classList.add("category-container");
+    const short = document.createElement("h3");
+    short.textContent = data.short;
+    const dc = document.createElement("div");
+    dc.classList.add("description-container");
+    const dp = document.createElement("p");
+    dp.textContent = data.name;
+    dp.style.color = "black";
+
+    ele.style.background = data.color;
+
+    dc.appendChild(dp);
+    ele.appendChild(short);
+    ele.appendChild(dc);
+
+    category_container_main.appendChild(ele);
+    return ele;
+}
+
+const propogateCategories = (data) => {
+    data.forEach((c, index) => {
+        const ele = spawnCategoryButton(c);
+        if(active_categories.includes(index)) ele.classList.add("active")
+        ele.addEventListener("click", () => {
+            if(!active_categories.includes(index)) {
+                active_categories.push(index);
+                ele.classList.add("active")
+            } else {
+                active_categories.splice(active_categories.indexOf(index), 1);
+                ele.classList.remove("active")
+            }
+        })
+    })
+}
+propogateCategories(categories);
