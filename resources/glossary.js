@@ -55,12 +55,12 @@ class Node {
     }
 }
 
+let NODES = []
+let glossary_card_map = {};
 // preprocessing
 const categories = data.categories;
 let active_categories = range(0, categories.length);
-
 const node_data = data.mindmap.nodes;
-let NODES = []
 for (const [key, value] of Object.entries(node_data)) {
     let references = 0; for (const [key2, value2] of Object.entries(node_data)) {
         if(value.node_data.connections != undefined && value.node_data.connections.map(n1 => n1.id).includes(key2)) references += 1;
@@ -70,7 +70,6 @@ for (const [key, value] of Object.entries(node_data)) {
     NODES[value.node_data.category][key] = new Node(new Circle2D(Vector.two(value.x, value.y), value.r+(data.mindmap.settings.connection_size_factor * references)), {...value.node_data, "color": categories[value.node_data.category].color})
 }
 const glossary_cards = data.glossary.cards
-let glossary_card_map = {};
 
 class Mindmap {
     constructor(ctx) {
@@ -86,7 +85,7 @@ class Mindmap {
                 "hasDragged": false
             },
             "debug": false,
-            "tutorial_lifespan": 3000,
+            "tutorial_lifespan": data.mindmap.settings.tutorial_lifespan,
             "tutorial_spent_lifespan": 0
         }
         
@@ -138,6 +137,7 @@ class Mindmap {
         window.addEventListener("mouseup", e =>   { this.data.cursor.down = false; this.onRelease(); })
         canvas.addEventListener("wheel", e => {
             e.preventDefault();
+            if(this.data.tutorial_spent_lifespan < this.data.tutorial_lifespan*0.8) this.data.tutorial_spent_lifespan = (this.data.tutorial_lifespan*0.8)
             const rect = canvas.getBoundingClientRect();
         
             const mouse = Vector.two(e.clientX - rect.left, e.clientY - rect.top);
@@ -176,7 +176,7 @@ class Mindmap {
             element.classList.add("selected")
             setTimeout(() => {
                 element.classList.remove("selected")
-            }, 500)
+            }, 800)
             const top = element.getBoundingClientRect().top - container.getBoundingClientRect().top + container.scrollTop;
             container.scrollTo({
                 top: top - (container.clientHeight - element.clientHeight) / 2,
@@ -295,10 +295,6 @@ class Mindmap {
             ctx.fillStyle = data.mindmap.settings.background.color
             ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height)
         }
-        if(data.mindmap.settings.outline) {
-            ctx.strokeStyle = "rgba(0, 0, 0, 1)"
-            ctx.strokeRect(0, 0, ctx.canvas.width, ctx.canvas.height)
-        }
 
         const active_node_list = NODES.filter((k, index) => active_categories.includes(index));
         const active_nodes = active_node_list.reduce((acc, current) => ({ ...acc, ...current }), {});
@@ -329,7 +325,7 @@ class Mindmap {
             ctx.fill();
 
             ctx.lineWidth = 2;
-            ctx.font = `${20 * this.scale}px Arial`;
+            ctx.font = `${Math.max(5, 20 * this.scale)}px Arial`;
             ctx.fillStyle = "black";
             const textWidth = ctx.measureText(n.name).width;
             ctx.fillText(n.name, nx - textWidth / 2, ny - nr - 8);
@@ -358,6 +354,11 @@ class Mindmap {
             ctx.fillText("click on terms to see the definition", 30, 400);
         
             ctx.restore();
+        }
+
+        if(data.mindmap.settings.outline) {
+            ctx.strokeStyle = "rgba(0, 0, 0, 1)"
+            ctx.strokeRect(0, 0, ctx.canvas.width, ctx.canvas.height)
         }
 
         

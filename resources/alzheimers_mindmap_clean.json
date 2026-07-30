@@ -929,7 +929,8 @@
         "color": "#D9E6EC"
       },
       "outline": true,
-      "connection_size_factor": 5
+      "connection_size_factor": 5,
+      "tutorial_lifespan": 5000
     }
   },
   "glossary": {
