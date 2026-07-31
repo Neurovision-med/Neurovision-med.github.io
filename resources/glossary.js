@@ -133,8 +133,8 @@ class Mindmap {
                 }
             }
         });
-        canvas.addEventListener("mousedown", e => { this.data.cursor.down = true; this.onClick(); })
-        window.addEventListener("mouseup", e =>   { this.data.cursor.down = false; this.onRelease(); })
+        canvas.addEventListener("mousedown", () => { this.data.cursor.down = true; this.onClick(); })
+        window.addEventListener("mouseup", () =>   { this.data.cursor.down = false; this.onRelease(); })
         canvas.addEventListener("wheel", e => {
             e.preventDefault();
             if(this.data.tutorial_spent_lifespan < this.data.tutorial_lifespan*0.8) this.data.tutorial_spent_lifespan = (this.data.tutorial_lifespan*0.8)
