@@ -598,3 +598,159 @@ footer a:hover {
     dominant-baseline:middle;
     pointer-events:none;
 }
+
+.team-grid{
+    max-width:1400px;
+    margin:auto;
+    display:grid;
+    grid-template-columns:repeat(6,1fr);
+    gap:28px;
+}
+
+.team-card{
+    display:block;
+    background:var(--white);
+    border:1px solid var(--border);
+    border-radius:18px;
+    overflow:hidden;
+    text-align:center;
+    box-shadow:var(--shadow);
+    transition:.25s;
+}
+
+.team-card:hover{
+    transform:translateY(-8px) scale(1.05);
+    box-shadow:var(--shadow-hover);
+}
+
+.team-card img{
+    width:100%;
+    aspect-ratio:1;
+    object-fit:cover;
+    display:block;
+}
+
+.team-card h3{
+    margin:18px 15px 8px;
+    color:var(--navy);
+    font-size:1.15rem;
+}
+
+.team-card p{
+    margin:0 15px 20px;
+    color:var(--gray);
+    font-weight:600;
+    font-size:.95rem;
+}
+
+.profile-modal{
+    position:fixed;
+    inset:0;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:rgba(0,0,0,.65);
+    opacity:0;
+    visibility:hidden;
+    transition:.25s;
+    z-index:5000;
+}
+
+.profile-modal:target{
+    opacity:1;
+    visibility:visible;
+}
+
+.profile-content{
+    position:relative;
+    width:min(760px,90vw);
+    background:var(--white);
+    border-radius:20px;
+    padding:45px;
+    text-align:center;
+    box-shadow:0 20px 50px rgba(0,0,0,.25);
+    animation:popup .25s ease;
+}
+
+@keyframes popup{
+    from{
+        opacity:0;
+        transform:scale(.9);
+    }
+    to{
+        opacity:1;
+        transform:scale(1);
+    }
+}
+
+.profile-content img{
+    width:220px;
+    height:220px;
+    object-fit:cover;
+    border-radius:50%;
+    border:6px solid var(--light-blue);
+    margin-bottom:25px;
+}
+
+.profile-content h2{
+    font-family:"Merriweather",serif;
+    color:var(--navy);
+    margin-bottom:8px;
+}
+
+.profile-content h4{
+    color:var(--teal);
+    margin-bottom:20px;
+    font-size:1.1rem;
+}
+
+.profile-content p{
+    max-width:600px;
+    margin:auto;
+    color:var(--gray);
+    line-height:1.8;
+}
+
+.close{
+    position:absolute;
+    top:18px;
+    right:22px;
+    font-size:2rem;
+    color:var(--gray);
+    transition:.2s;
+}
+
+.close:hover{
+    color:var(--navy);
+}
+
+@media(max-width:1300px){
+    .team-grid{
+        grid-template-columns:repeat(4,1fr);
+    }
+}
+
+@media(max-width:900px){
+    .team-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .profile-content{
+        width:min(650px,92vw);
+    }
+}
+
+@media(max-width:550px){
+    .team-grid{
+        grid-template-columns:1fr;
+    }
+
+    .profile-content{
+        padding:30px 25px;
+    }
+
+    .profile-content img{
+        width:170px;
+        height:170px;
+    }
+}
